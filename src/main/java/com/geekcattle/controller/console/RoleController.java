@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -92,11 +93,11 @@ public class RoleController {
         try {
             if (StringUtils.isEmpty(role.getRoleId())) {
                 role.setRoleId(UuidUtil.getUUID());
-                role.setCreatedAt(DateUtil.getCurrentTime());
-                role.setUpdatedAt(DateUtil.getCurrentTime());
+                role.setCreatedAt(new Date());
+                role.setUpdatedAt(new Date());
                 roleService.insert(role);
             } else {
-                role.setUpdatedAt(DateUtil.getCurrentTime());
+                role.setUpdatedAt(new Date());
                 roleService.save(role);
             }
             return ReturnUtil.Success("操作成功", null, "/console/role/index");

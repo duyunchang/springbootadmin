@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.geekcattle.model.BaseEntity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,7 +31,8 @@ public class Member extends BaseEntity implements Serializable{
 
 	@Id
     @Column(name = "uid")
-    @GeneratedValue(generator = "UUID")
+    //@GeneratedValue(generator = "UUID")
+	@GeneratedValue
     private String uid;
 	@Column(name = "account")
     private String account;
@@ -41,9 +43,9 @@ public class Member extends BaseEntity implements Serializable{
 	@Column(name = "state")
     private Integer state;
 	@Column(name = "created_at")
-    private String createdAt;
+    private Date createdAt;
 	@Column(name = "updated_at")
-    private String updatedAt;
+    private Date updatedAt;
 
     @Transient
     @JsonIgnore
@@ -93,23 +95,25 @@ public class Member extends BaseEntity implements Serializable{
         this.state = state;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
-    }
+    
 
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
+    public Date getCreatedAt() {
+		return createdAt;
+	}
 
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
 
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
 
-    public String getSort() {
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	public String getSort() {
         return sort;
     }
 

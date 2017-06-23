@@ -11,6 +11,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 @Entity
 @Table(name="menu")
@@ -23,7 +24,8 @@ public class Menu extends BaseEntity implements Serializable{
 
 	@Id
     @Column(name = "menu_id")
-    @GeneratedValue(generator = "UUID")
+    //@GeneratedValue(generator = "UUID")
+	@GeneratedValue
     private String menuId;
 
     @NotEmpty(message="菜单名称不能为空")
@@ -51,9 +53,9 @@ public class Menu extends BaseEntity implements Serializable{
     @Column(name = "listorder")
     private Integer listorder;
     @Column(name = "created_at")
-    private String createdAt;
+    private Date createdAt;
     @Column(name = "updated_at")
-    private String updatedAt;
+    private Date updatedAt;
 
     @Transient
     private List<Menu> children;
@@ -136,23 +138,25 @@ public class Menu extends BaseEntity implements Serializable{
         this.listorder = listorder;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
-    }
+  
 
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
+    public Date getCreatedAt() {
+		return createdAt;
+	}
 
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
 
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
 
-    public List<Menu> getChildren() {
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	public List<Menu> getChildren() {
         return children;
     }
 

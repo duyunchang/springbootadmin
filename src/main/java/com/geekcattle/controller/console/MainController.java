@@ -91,12 +91,15 @@ public class MainController {
     }
 
     private Map<String, Object> getTotal() {
-        Example exampleAdmin = new Example(Admin.class);
-        Integer adminCount = adminService.getCount(exampleAdmin);
-        Example exampleRole = new Example(Role.class);
-        Integer roleCount = roleService.getCount(exampleRole);
-        Example exampleMenu = new Example(Menu.class);
-        Integer menuCount = menuService.getCount(exampleMenu);
+        //Example exampleAdmin = new Example(Admin.class);
+        Integer adminCount = 1;
+        		//adminService.getCount(exampleAdmin);
+        //Example exampleRole = new Example(Role.class);
+        Integer roleCount = 1;
+        		//roleService.getCount(exampleRole);
+       // Example exampleMenu = new Example(Menu.class);
+        Integer menuCount = 1;
+        		//menuService.getCount(exampleMenu);
         Map<String, Object> mp = new HashMap<>();
         mp.put("admin", adminCount);
         mp.put("role", roleCount);

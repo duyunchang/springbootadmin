@@ -11,6 +11,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -24,7 +25,8 @@ public class Admin extends BaseEntity implements Serializable {
 
 	@Id
     @Column(name = "uid")
-    @GeneratedValue(generator = "UUID")
+    //@GeneratedValue(generator = "UUID")
+	@GeneratedValue
     private String uid;
 
     @NotEmpty(message="账号不能为空")
@@ -40,9 +42,9 @@ public class Admin extends BaseEntity implements Serializable {
     @Column(name="is_system")
     private Integer isSystem;
     @Column(name="created_at")
-    private String createdAt;
+    private Date createdAt;
     @Column(name="updated_at")
-    private String updatedAt;
+    private Date updatedAt;
 
     @Transient
     @JsonIgnore
@@ -106,23 +108,25 @@ public class Admin extends BaseEntity implements Serializable {
         this.isSystem = isSystem;
     }
 
-    public String  getCreatedAt() {
-        return createdAt;
-    }
+   
 
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
+    public Date getCreatedAt() {
+		return createdAt;
+	}
 
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
 
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
 
-    public String getSort() {
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	public String getSort() {
         if(StringUtils.isEmpty(sort)){
             return "createdAt";
         }else{

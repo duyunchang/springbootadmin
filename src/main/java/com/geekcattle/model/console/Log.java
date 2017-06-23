@@ -30,7 +30,8 @@ public class Log  extends BaseEntity implements Serializable{
 
 	@Id
     @Column(name = "log_id")
-    @GeneratedValue(generator = "UUID")
+    //@GeneratedValue(generator = "UUID")
+	@GeneratedValue
     private String logId;
 
     @Column(name = "log_user")

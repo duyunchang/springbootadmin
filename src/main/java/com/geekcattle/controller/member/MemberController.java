@@ -30,6 +30,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 //import tk.mybatis.mapper.entity.Example;
 
+import java.util.Date;
+
 import javax.validation.Valid;
 
 /**
@@ -125,8 +127,8 @@ public class MemberController {
             String password = PasswordUtil.createCustomPwd(member.getPassword(), member.getSalt());
             member.setPassword(password);
             member.setState(1);
-            member.setCreatedAt(DateUtil.getCurrentTime());
-            member.setUpdatedAt(DateUtil.getCurrentTime());
+            member.setCreatedAt(new Date());
+            member.setUpdatedAt(new Date());
             memberService.insert(member);
             return ReturnUtil.Success("操作成功", null, null);
         } catch (Exception e) {

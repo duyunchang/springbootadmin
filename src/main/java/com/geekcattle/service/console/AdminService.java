@@ -9,6 +9,7 @@ import com.geekcattle.model.console.Admin;
 import com.geekcattle.util.CamelCaseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +23,7 @@ import org.springframework.data.domain.Sort;
  * date 2016/10/21 0021 下午 15:43
  */
 @Service
+@Transactional
 public class AdminService {
 
     @Autowired
@@ -36,7 +38,7 @@ public class AdminService {
     }
 
     public Integer getCount(String username){
-    	Admin selectByUsername = adminMapper.selectByUsername(username);
+    	Admin selectByUsername = adminMapper.selectByUserName(username);
     	if(selectByUsername!=null&&selectByUsername.getUid()!=null){
     		return 1;
     	}else{
@@ -51,11 +53,11 @@ public class AdminService {
     }
 
     public Admin findByUsername(String username) {
-        return adminMapper.selectByUsername(username);
+        return adminMapper.selectByUserName(username);
     }
 
     public void deleteById(String id) {
-        adminMapper.delete(id);
+        adminMapper.deleteById( id);
     }
 
     public void insert(Admin admin){

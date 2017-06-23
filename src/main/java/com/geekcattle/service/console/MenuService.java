@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.swing.tree.TreeNode;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ import java.util.Set;
  * date 2016/10/21 0021 下午 15:43
  */
 @Service
+@Transactional
 public class MenuService {
 
     @Autowired
@@ -121,7 +123,13 @@ public class MenuService {
     }
 
     public Set<String> findMenuCodeByUserId(String userId) {
-        return menuMapper.findMenuCodeByUserId(userId);
+    	List<Menu> list= menuMapper.findMenuCodeByUserId(userId);
+    	Set<String>  set=new HashSet<String>();
+    	for(Menu menu:list){
+    		set.add(menu.getMenuCode());
+    		
+    	}
+    	return set;
     }
 
     public Set<String> getAllMenuCode() {
@@ -145,7 +153,7 @@ public class MenuService {
     }
 
     public List<Menu> selectAllMenu(){
-        return menuMapper.selectAllMenu();
+        return menuMapper.findAll();
     }
 
     public List<Menu> selectMenuByRoleId(String roleId){

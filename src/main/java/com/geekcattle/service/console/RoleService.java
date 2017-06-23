@@ -14,7 +14,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -23,6 +25,7 @@ import java.util.Set;
  * date 2016/10/21 0021 下午 15:47
  */
 @Service
+@Transactional
 public class RoleService {
 
     @Autowired
@@ -45,9 +48,9 @@ public class RoleService {
         return roleMapper.findAllByEnable(1);
     }
 
-    public Integer getCount(Example example){
-        return roleMapper.selectCountByExample(example);
-    }
+//    public Integer getCount(Example example){
+//        return roleMapper.selectCountByExample(example);
+//    }
 
     public Role getById(String id) {
     	
@@ -55,10 +58,10 @@ public class RoleService {
         return roleMapper.findOne(id);
     }
 
-    public List<Role> getById(Role roles) {
-       
-    	return roleMapper.findAll( roles.getRoleId());
-    }
+//    public List<Role> getById(Role roles) {
+//       
+//    	return roleMapper.findAll( roles.getRoleId());
+//    }
 
     public void deleteById(String id) {
         roleMapper.delete(id);
@@ -73,7 +76,13 @@ public class RoleService {
     }
 
     public Set<String> findRoleByUserId(String userId) {
-        return roleMapper.findRoleByUserId(userId);
+    	List<Role> findRoleByUserId = roleMapper.findRoleByUserId(userId);
+    	Set<String>  set=new HashSet<String>();
+    	for(Role role:findRoleByUserId){
+    		set.add(role.getRoleName());
+    		
+    	}
+        return set;
     }
 
     public List<Role> selectRoleListByAdminId(String Id){

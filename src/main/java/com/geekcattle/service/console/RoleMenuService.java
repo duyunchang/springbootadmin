@@ -9,6 +9,7 @@ import com.geekcattle.model.console.AdminRole;
 import com.geekcattle.model.console.RoleMenu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ import java.util.List;
  * date 2016/12/6 0006 上午 10:45
  */
 @Service
+@Transactional
 public class RoleMenuService {
 
     @Autowired

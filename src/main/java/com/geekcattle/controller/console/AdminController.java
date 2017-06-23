@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -61,7 +62,9 @@ public class AdminController {
                 AdminRole adminRole = new AdminRole();
                 adminRole.setAdminId(admin.getUid());
                 List<AdminRole> adminRoleLists = adminRoleService.getRoleList(adminRole);
-                admin.setUpdatedAt(DateUtil.getCurrentTime());
+               // admin.setUpdatedAt(DateUtil.getCurrentTime());
+                admin.setUpdatedAt(new Date());
+                
                 ArrayList<String> checkRoleIds = new ArrayList<String>();
                 for (AdminRole adminRoleList : adminRoleLists) {
                     checkRoleIds.add(adminRoleList.getRoleId());
@@ -126,8 +129,8 @@ public class AdminController {
                 String password = PasswordUtil.createAdminPwd(admin.getPassword(), admin.getCredentialsSalt());
                 admin.setPassword(password);
                 admin.setIsSystem(0);
-                admin.setCreatedAt(DateUtil.getCurrentTime());
-                admin.setUpdatedAt(DateUtil.getCurrentTime());
+                admin.setCreatedAt(new Date());
+                admin.setUpdatedAt(new Date());
                 adminService.insert(admin);
             } else {
                 Admin updateAdmin = adminService.getById(admin.getUid());
@@ -139,7 +142,7 @@ public class AdminController {
                     } else {
                         admin.setPassword(updateAdmin.getPassword());
                     }
-                    admin.setUpdatedAt(DateUtil.getCurrentTime());
+                    admin.setUpdatedAt(new Date());
                     adminService.save(admin);
                 } else {
                     return ReturnUtil.Error("操作失败", null, null);

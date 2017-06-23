@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -79,14 +80,14 @@ public class MenuController {
         if (!StringUtils.isEmpty(menu.getMenuId())) {
             menu = menuService.getById(menu.getMenuId());
             if (!"null".equals(menu)) {
-                menu.setUpdatedAt(DateUtil.getCurrentTime());
+                menu.setUpdatedAt(new Date());
             }
         } else {
             menu.setChildNum(0);
             menu.setListorder(0);
             menu.setMenuType("menu");
-            menu.setCreatedAt(DateUtil.getCurrentTime());
-            menu.setUpdatedAt(DateUtil.getCurrentTime());
+            menu.setCreatedAt(new Date());
+            menu.setUpdatedAt(new Date());
         }
         model.addAttribute("menu", menu);
         return "console/menu/from";
