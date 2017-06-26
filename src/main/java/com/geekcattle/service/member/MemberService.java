@@ -4,7 +4,7 @@
 
 package com.geekcattle.service.member;
 
-import com.geekcattle.mapper.member.MemberMapper;
+import com.geekcattle.manager.member.MemberMapper;
 import com.geekcattle.model.console.Admin;
 import com.geekcattle.model.member.Member;
 import com.geekcattle.util.CamelCaseUtil;
@@ -23,7 +23,6 @@ import java.util.List;
  * date 2017/3/23 0023 上午 11:25
  */
 @Service
-@Transactional
 public class MemberService {
 
     @Autowired
@@ -46,6 +45,7 @@ public class MemberService {
         return memberMapper.selectByUsername(username);
     }
 
+    @Transactional
     public void insert(Member member){
         memberMapper.save(member);
     }

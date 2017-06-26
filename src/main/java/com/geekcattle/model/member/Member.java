@@ -32,7 +32,7 @@ public class Member extends BaseEntity implements Serializable{
 	@Id
     @Column(name = "uid")
     //@GeneratedValue(generator = "UUID")
-	@GeneratedValue
+	//@GeneratedValue
     private String uid;
 	@Column(name = "account")
     private String account;

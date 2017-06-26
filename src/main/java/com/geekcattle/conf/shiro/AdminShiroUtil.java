@@ -6,7 +6,6 @@ package com.geekcattle.conf.shiro;
 
 import com.geekcattle.model.console.Admin;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.UnavailableSecurityManagerException;
 import org.apache.shiro.session.InvalidSessionException;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;

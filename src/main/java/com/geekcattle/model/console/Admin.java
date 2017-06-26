@@ -26,7 +26,7 @@ public class Admin extends BaseEntity implements Serializable {
 	@Id
     @Column(name = "uid")
     //@GeneratedValue(generator = "UUID")
-	@GeneratedValue
+	//@GeneratedValue
     private String uid;
 
     @NotEmpty(message="账号不能为空")

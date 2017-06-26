@@ -2,7 +2,7 @@
  * Copyright (c) 2017 <l_iupeiyu@qq.com> All rights reserved.
  */
 
-package com.geekcattle.mapper.member;
+package com.geekcattle.manager.member;
 
 import java.util.List;
 

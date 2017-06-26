@@ -4,7 +4,7 @@
 
 package com.geekcattle.service.console;
 
-import com.geekcattle.mapper.console.RoleMenuMapper;
+import com.geekcattle.manager.console.RoleMenuMapper;
 import com.geekcattle.model.console.AdminRole;
 import com.geekcattle.model.console.RoleMenu;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +18,17 @@ import java.util.List;
  * date 2016/12/6 0006 上午 10:45
  */
 @Service
-@Transactional
 public class RoleMenuService {
 
     @Autowired
     private RoleMenuMapper roleMenuMapper;
 
+    @Transactional
     public void insert(RoleMenu roleMenu){
         roleMenuMapper.save(roleMenu);
     }
 
+    @Transactional
     public void deleteMenuId(String id){
 //        Example example = new Example(RoleMenu.class);
 //        example.createCriteria().andCondition("menu_id =", id);
@@ -36,6 +37,7 @@ public class RoleMenuService {
         
     }
 
+    @Transactional
     public void deleteRoleId(String id){
 //        Example example = new Example(RoleMenu.class);
 //        example.createCriteria().andCondition("role_id =", id);

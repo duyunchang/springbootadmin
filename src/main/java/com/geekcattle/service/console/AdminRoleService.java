@@ -4,7 +4,7 @@
 
 package com.geekcattle.service.console;
 
-import com.geekcattle.mapper.console.AdminRoleMapper;
+import com.geekcattle.manager.console.AdminRoleMapper;
 import com.geekcattle.model.console.AdminRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,16 +17,17 @@ import java.util.List;
  * date 2016/12/6 0006 上午 10:45
  */
 @Service
-@Transactional
 public class AdminRoleService {
 
     @Autowired
     private AdminRoleMapper adminRoleMapper;
 
+    @Transactional
     public void insert(AdminRole adminRole){
         adminRoleMapper.save(adminRole);
     }
 
+    @Transactional
     public void deleteAdminId(String id){
         //Example example = new Example(AdminRole.class);
         //example.createCriteria().andCondition("admin_id =", id);
@@ -34,6 +35,7 @@ public class AdminRoleService {
     	adminRoleMapper.delete(id);
     }
 
+    @Transactional
     public void deleteRoleId(String id){
         //Example example = new Example(AdminRole.class);
        // example.createCriteria().andCondition("role_id =", id);

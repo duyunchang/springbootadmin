@@ -4,7 +4,8 @@
 
 package com.geekcattle.service.console;
 
-import com.geekcattle.mapper.console.RoleMapper;
+import com.geekcattle.manager.BaseNativeSqlRepository;
+import com.geekcattle.manager.console.RoleMapper;
 import com.geekcattle.model.console.Admin;
 import com.geekcattle.model.console.Role;
 import com.geekcattle.util.CamelCaseUtil;
@@ -25,11 +26,13 @@ import java.util.Set;
  * date 2016/10/21 0021 下午 15:47
  */
 @Service
-@Transactional
 public class RoleService {
 
     @Autowired
     private RoleMapper roleMapper;
+
+    @Autowired
+    private BaseNativeSqlRepository  BaseNativeSqlManager;
 
     public List<Role> getPageList(Role role) {
     	Sort sort = new Sort(Sort.Direction.DESC, "created_at");  
@@ -62,21 +65,23 @@ public class RoleService {
 //       
 //    	return roleMapper.findAll( roles.getRoleId());
 //    }
-
+    @Transactional
     public void deleteById(String id) {
         roleMapper.delete(id);
     }
 
+    @Transactional
     public void save(Role role) {
         roleMapper.save(role);
     }
 
+    @Transactional
     public void insert(Role role){
         roleMapper.save(role);
     }
 
     public Set<String> findRoleByUserId(String userId) {
-    	List<Role> findRoleByUserId = roleMapper.findRoleByUserId(userId);
+    	List<Role> findRoleByUserId = BaseNativeSqlManager.findRoleByUserId(userId);
     	Set<String>  set=new HashSet<String>();
     	for(Role role:findRoleByUserId){
     		set.add(role.getRoleName());
@@ -86,7 +91,7 @@ public class RoleService {
     }
 
     public List<Role> selectRoleListByAdminId(String Id){
-        return roleMapper.selectRoleListByAdminId(Id);
+        return BaseNativeSqlManager.selectRoleListByAdminId(Id);
     }
 
 }

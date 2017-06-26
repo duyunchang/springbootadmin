@@ -4,7 +4,8 @@
 
 package com.geekcattle.service.console;
 
-import com.geekcattle.mapper.console.AdminMapper;
+import com.geekcattle.manager.BaseNativeSqlRepository;
+import com.geekcattle.manager.console.AdminMapper;
 import com.geekcattle.model.console.Admin;
 import com.geekcattle.util.CamelCaseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,8 @@ public class AdminService {
 
     @Autowired
     private AdminMapper adminMapper;
+    @Autowired
+    private BaseNativeSqlRepository  BaseNativeSqlManager;
 
     public List<Admin> getPageList(Admin admin) {
     	Sort sort = new Sort(Sort.Direction.DESC, "created_at");  
@@ -56,14 +59,19 @@ public class AdminService {
         return adminMapper.selectByUserName(username);
     }
 
+    @Transactional
     public void deleteById(String id) {
-        adminMapper.deleteById( id);
+    	
+    	BaseNativeSqlManager.deleteById( id);;
+        //adminMapper.deleteById( id);
     }
 
+    @Transactional
     public void insert(Admin admin){
         adminMapper.save(admin);
     }
 
+    @Transactional
     public void save(Admin admin) {
     	adminMapper.save(admin);
     	
@@ -74,6 +82,7 @@ public class AdminService {
 //        }
     }
 
+    @Transactional
     public void updateExample(String newPassword,String uid){
     	
         adminMapper.updatePasswordByUid(newPassword, uid);

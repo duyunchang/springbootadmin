@@ -31,7 +31,7 @@ public class Role extends BaseEntity implements Serializable{
 	@Id
     @Column(name = "role_id")
     //@GeneratedValue(generator = "UUID")
-	@GeneratedValue
+	//@GeneratedValue
     private String roleId;
 
     @NotEmpty(message="角色名称不能为空")

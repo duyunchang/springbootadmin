@@ -10,17 +10,14 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "role_menu")
-public class RoleMenu implements Serializable{
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 7743398050165471673L;
+public class RoleMenu {
+  
 
 	@Id
     @Column(name = "role_id")
     private String roleId;
 
-    @Id
+    //@Id
     @Column(name = "menu_id")
     private String menuId;
 
@@ -51,4 +48,8 @@ public class RoleMenu implements Serializable{
     public void setMenuId(String menuId) {
         this.menuId = menuId;
     }
+
+	
+    
+    
 }

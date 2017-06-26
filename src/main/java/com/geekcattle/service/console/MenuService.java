@@ -4,8 +4,9 @@
 
 package com.geekcattle.service.console;
 
-import com.geekcattle.mapper.console.AdminMapper;
-import com.geekcattle.mapper.console.MenuMapper;
+import com.geekcattle.manager.BaseNativeSqlRepository;
+import com.geekcattle.manager.console.AdminMapper;
+import com.geekcattle.manager.console.MenuMapper;
 import com.geekcattle.model.console.Admin;
 import com.geekcattle.model.console.Menu;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +30,13 @@ import java.util.Set;
  * date 2016/10/21 0021 下午 15:43
  */
 @Service
-@Transactional
 public class MenuService {
 
     @Autowired
     private MenuMapper menuMapper;
+    
+    @Autowired
+    private BaseNativeSqlRepository  BaseNativeSqlManager;
 
     public List<Menu> getPageList(Menu menu) {
     	
@@ -105,14 +108,17 @@ public class MenuService {
         return menuMapper.findOne(id);
     }
 
+    @Transactional
     public void deleteById(String id) {
         menuMapper.delete(id);
     }
 
+    @Transactional
     public void insert(Menu menu){
         menuMapper.save(menu);
     }
 
+    @Transactional
     public void save(Menu menu) {
     	menuMapper.save(menu);
 //        if (menu.getMenuId() != null) {
@@ -123,7 +129,7 @@ public class MenuService {
     }
 
     public Set<String> findMenuCodeByUserId(String userId) {
-    	List<Menu> list= menuMapper.findMenuCodeByUserId(userId);
+    	List<Menu> list= BaseNativeSqlManager.findMenuCodeByUserId(userId);
     	Set<String>  set=new HashSet<String>();
     	for(Menu menu:list){
     		set.add(menu.getMenuCode());
@@ -149,7 +155,7 @@ public class MenuService {
     }
 
     public List<Menu> selectMenuByAdminId(String userId){
-        return menuMapper.selectMenuByAdminId(userId);
+        return BaseNativeSqlManager.selectMenuByAdminId(userId);
     }
 
     public List<Menu> selectAllMenu(){
@@ -157,9 +163,10 @@ public class MenuService {
     }
 
     public List<Menu> selectMenuByRoleId(String roleId){
-        return menuMapper.selectMenuByRoleId(roleId);
+        return BaseNativeSqlManager.selectMenuByRoleId(roleId);
     }
 
+    @Transactional
     public void update(Menu menu, String id ){
     	
     	menuMapper.updatelistorderByid(menu.getListorder(),  id);

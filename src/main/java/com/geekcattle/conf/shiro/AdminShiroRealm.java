@@ -6,7 +6,6 @@ package com.geekcattle.conf.shiro;
 
 import com.geekcattle.model.console.Admin;
 import com.geekcattle.model.console.Menu;
-import com.geekcattle.model.console.Role;
 import com.geekcattle.service.console.AdminService;
 import com.geekcattle.service.console.MenuService;
 import com.geekcattle.service.console.RoleService;
@@ -20,7 +19,6 @@ import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**

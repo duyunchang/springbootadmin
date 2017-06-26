@@ -4,7 +4,7 @@
 
 package com.geekcattle.service.console;
 
-import com.geekcattle.mapper.console.LogMapper;
+import com.geekcattle.manager.console.LogMapper;
 import com.geekcattle.model.console.AdminRole;
 import com.geekcattle.model.console.Log;
 import com.geekcattle.util.CamelCaseUtil;
@@ -25,7 +25,6 @@ import java.util.List;
  * date 2017/1/6 0006 上午 11:26
  */
 @Service
-@Transactional
 public class LogService {
 
     @Autowired
@@ -41,10 +40,11 @@ public class LogService {
 //        return logMapper.selectAll();
     }
 
+    @Transactional
     public void insert(Log log){
         logMapper.save(log);
     }
-
+    @Transactional
     public void insertLoginLog(String username, String ip, String action){
         Log  log = new Log();
         log.setLogId(UuidUtil.getUUID());

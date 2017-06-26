@@ -25,7 +25,7 @@ public class Menu extends BaseEntity implements Serializable{
 	@Id
     @Column(name = "menu_id")
     //@GeneratedValue(generator = "UUID")
-	@GeneratedValue
+	//@GeneratedValue
     private String menuId;
 
     @NotEmpty(message="菜单名称不能为空")
