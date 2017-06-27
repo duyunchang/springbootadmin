@@ -31,8 +31,8 @@ public class AdminShiroRealm extends AuthorizingRealm {
     @Autowired
     private AdminService adminService;
 
-    @Autowired
-    private RoleService roleService;
+    //@Autowired
+    //private RoleService roleService;
 
     @Autowired
     private MenuService menuService;
@@ -117,6 +117,7 @@ public class AdminShiroRealm extends AuthorizingRealm {
         }else{
             menus = menuService.findMenuCodeByUserId(userInfo.getUid());
         }
+        //System.out.println(menus);
         authorizationInfo.addStringPermissions(menus);
         return authorizationInfo;
     }

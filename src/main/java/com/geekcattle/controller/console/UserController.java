@@ -7,10 +7,11 @@ package com.geekcattle.controller.console;
 import com.geekcattle.model.member.Member;
 import com.geekcattle.service.member.MemberService;
 import com.geekcattle.util.ReturnUtil;
+import com.github.pagehelper.PageInfo;
+
 //import com.github.pagehelper.PageInfo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -43,7 +44,7 @@ public class UserController {
     public ModelMap list(Member member) {
         ModelMap map = new ModelMap();
         List<Member> Lists = memberService.getPageList(member);
-        map.put("pageInfo", new PageImpl<Member>(Lists));
+        map.put("pageInfo", new PageInfo<Member>(Lists));
         map.put("queryParam", member);
         return ReturnUtil.Success("加载成功", map, null);
     }

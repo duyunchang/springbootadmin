@@ -4,7 +4,6 @@
 
 package com.geekcattle.model.member;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.geekcattle.model.BaseEntity;
 
 import java.io.Serializable;
@@ -12,92 +11,79 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /**
- * author geekcattle
- * date 2016/10/21 0021 下午 15:11
+ * author geekcattle date 2016/10/21 0021 下午 15:11
  */
 @Entity
 @Table(name = "member")
-public class Member extends BaseEntity implements Serializable{
-    /**
+public class Member extends BaseEntity implements Serializable {
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -3057468652938529635L;
 
 	@Id
-    @Column(name = "uid")
-    //@GeneratedValue(generator = "UUID")
-	//@GeneratedValue
-    private String uid;
+	@Column(name = "uid")
+	// @GeneratedValue(generator = "UUID")
+	// @GeneratedValue
+	private String uid;
 	@Column(name = "account")
-    private String account;
+	private String account;
 	@Column(name = "password")
-    private String password;
+	private String password;
 	@Column(name = "salt")
-    private String salt;
+	private String salt;
 	@Column(name = "state")
-    private Integer state;
+	private Integer state;//0账号锁定
 	@Column(name = "created_at")
-    private Date createdAt;
+	private Date createdAt;
 	@Column(name = "updated_at")
-    private Date updatedAt;
+	private Date updatedAt;
 
-    @Transient
-    @JsonIgnore
-    private String sort = "";
+	public String getUid() {
+		return uid;
+	}
 
-    @Transient
-    @JsonIgnore
-    private String order = "";
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
 
-    public String getUid() {
-        return uid;
-    }
+	public String getAccount() {
+		return account;
+	}
 
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
+	public void setAccount(String account) {
+		this.account = account;
+	}
 
-    public String getAccount() {
-        return account;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setAccount(String account) {
-        this.account = account;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public String getSalt() {
+		return salt;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
 
-    public String getSalt() {
-        return salt;
-    }
+	public Integer getState() {
+		return state;
+	}
 
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
+	public void setState(Integer state) {
+		this.state = state;
+	}
 
-    public Integer getState() {
-        return state;
-    }
-
-    public void setState(Integer state) {
-        this.state = state;
-    }
-
-    
-
-    public Date getCreatedAt() {
+	public Date getCreatedAt() {
 		return createdAt;
 	}
 
@@ -113,19 +99,10 @@ public class Member extends BaseEntity implements Serializable{
 		this.updatedAt = updatedAt;
 	}
 
-	public String getSort() {
-        return sort;
-    }
+	@Override
+	public String toString() {
+		return "Member [uid=" + uid + ", account=" + account + ", password=" + password + ", salt=" + salt + ", state="
+				+ state + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
+	}
 
-    public void setSort(String sort) {
-        this.sort = sort;
-    }
-
-    public String getOrder() {
-        return order;
-    }
-
-    public void setOrder(String order) {
-        this.order = order;
-    }
 }

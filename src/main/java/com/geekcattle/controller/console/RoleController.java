@@ -9,7 +9,7 @@ import com.geekcattle.service.console.AdminRoleService;
 import com.geekcattle.service.console.MenuService;
 import com.geekcattle.service.console.RoleMenuService;
 import com.geekcattle.service.console.RoleService;
-import com.geekcattle.util.DateUtil;
+import com.github.pagehelper.PageInfo;
 import com.geekcattle.util.ReturnUtil;
 import com.geekcattle.util.UuidUtil;
 import com.geekcattle.util.console.MenuTreeUtil;
@@ -17,7 +17,6 @@ import com.geekcattle.util.console.MenuTreeUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -67,8 +66,11 @@ public class RoleController {
             List<Menu> menuList = menuService.selectMenuByRoleId(list.getRoleId());
             list.setMenuList(menuList);
         }
-        map.put("pageInfo", new PageImpl<Role>(Lists));
+        System.out.println(Lists);
+        
+        map.put("pageInfo", new PageInfo<Role>(Lists));
         map.put("queryParam", role);
+        System.out.println(map);
         return ReturnUtil.Success("加载成功", map, null);
     }
 

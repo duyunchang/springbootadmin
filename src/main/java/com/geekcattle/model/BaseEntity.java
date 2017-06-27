@@ -6,12 +6,14 @@ package com.geekcattle.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 
 /**
  * 基础信息
  */
+@Component
 public class BaseEntity {
 
     @Transient

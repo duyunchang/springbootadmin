@@ -9,8 +9,9 @@ import com.geekcattle.model.console.Log;
 import com.geekcattle.model.console.Role;
 import com.geekcattle.service.console.LogService;
 import com.geekcattle.util.ReturnUtil;
+import com.github.pagehelper.PageInfo;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -41,7 +42,7 @@ public class LogController {
     public ModelMap list(Log log) {
         ModelMap map = new ModelMap();
         List<Log> Lists = logService.getPageList(log);
-        map.put("pageInfo", new PageImpl<Log>(Lists));
+        map.put("pageInfo", new PageInfo<Log>(Lists));
         map.put("queryParam", log);
         return ReturnUtil.Success("加载成功", map, null);
     }

@@ -5,6 +5,7 @@
 package com.geekcattle.service.console;
 
 import com.geekcattle.manager.console.LogMapper;
+import com.geekcattle.model.BaseEntity;
 import com.geekcattle.model.console.AdminRole;
 import com.geekcattle.model.console.Log;
 import com.geekcattle.util.CamelCaseUtil;
@@ -29,10 +30,13 @@ public class LogService {
 
     @Autowired
     private LogMapper logMapper;
+    
+    @Autowired 
+    private BaseEntity baseEntity;
 
     public List<Log> getPageList(Log log) {
-    	Sort sort = new Sort(Sort.Direction.DESC, "log_time");  
-    	Pageable pageable = new PageRequest(log.getOffset(), log.getLimit(), sort); 
+    	Sort sort = new Sort(Sort.Direction.DESC, "logTime");  
+    	Pageable pageable = new PageRequest(baseEntity.getOffset(), baseEntity.getLimit(), sort); 
     	
         return logMapper.findAll(pageable).getContent();
         
@@ -44,7 +48,7 @@ public class LogService {
     public void insert(Log log){
         logMapper.save(log);
     }
-    @Transactional
+    
     public void insertLoginLog(String username, String ip, String action){
         Log  log = new Log();
         log.setLogId(UuidUtil.getUUID());

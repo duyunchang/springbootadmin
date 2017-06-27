@@ -19,4 +19,7 @@ public interface RoleMapper extends JpaRepository<Role,String> {
     
 	@Query("from Role r where r.enable=?1 ")
     List<Role> findAllByEnable(Integer enable);
+	
+//	@Query("from Role r inner join AdminRole ar on r.roleId = ar.roleId left join Admin a on a.uid = ar.adminId  where a.uid = ?1 and r.enable = 1")
+//	List<Role> selectRoleListByAdminId(String Id);
 }

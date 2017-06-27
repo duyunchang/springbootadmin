@@ -10,13 +10,23 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "admin_role")
-public class AdminRole {
-	
+public class AdminRole implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -613389389291147609L;
+
 	@Id
+	@GeneratedValue
+	@Column(name = "id")
+	private Long id;
+	
+	
+	
 	@Column(name = "admin_id")
 	private String adminId;
 
-	//@Id
 	@Column(name = "role_id")
 	private String roleId;
 
@@ -46,6 +56,19 @@ public class AdminRole {
 	 */
 	public void setRoleId(String roleId) {
 		this.roleId = roleId;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "AdminRole [id=" + id + ", adminId=" + adminId + ", roleId=" + roleId + "]";
 	}
 
 	

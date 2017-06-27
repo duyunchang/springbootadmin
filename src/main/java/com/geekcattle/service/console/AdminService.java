@@ -6,16 +6,14 @@ package com.geekcattle.service.console;
 
 import com.geekcattle.manager.BaseNativeSqlRepository;
 import com.geekcattle.manager.console.AdminMapper;
+import com.geekcattle.model.BaseEntity;
 import com.geekcattle.model.console.Admin;
-import com.geekcattle.util.CamelCaseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -31,10 +29,13 @@ public class AdminService {
     private AdminMapper adminMapper;
     @Autowired
     private BaseNativeSqlRepository  BaseNativeSqlManager;
+    
+    @Autowired 
+    private BaseEntity baseEntity;
 
     public List<Admin> getPageList(Admin admin) {
-    	Sort sort = new Sort(Sort.Direction.DESC, "created_at");  
-    	Pageable pageable = new PageRequest(admin.getOffset(), admin.getLimit(), sort); 
+    	Sort sort = new Sort(Sort.Direction.DESC, "createdAt");  
+    	Pageable pageable = new PageRequest(baseEntity.getOffset(), baseEntity.getLimit(), sort); 
     	
         //PageHelper.offsetPage(admin.getOffset(), admin.getLimit(), CamelCaseUtil.toUnderlineName(admin.getSort())+" "+admin.getOrder());
         return adminMapper.findAll(pageable).getContent();

@@ -11,11 +11,12 @@ import com.geekcattle.service.console.AdminRoleService;
 import com.geekcattle.service.console.AdminService;
 import com.geekcattle.service.console.RoleService;
 import com.geekcattle.util.*;
+import com.github.pagehelper.PageInfo;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -96,7 +97,7 @@ public class AdminController {
             List<Role> rolelist = roleService.selectRoleListByAdminId(list.getUid());
             list.setRoleList(rolelist);
         }
-        map.put("pageInfo", new PageImpl<Admin>(Lists));
+        map.put("pageInfo", new PageInfo<Admin>(Lists));
         map.put("queryParam", admin);
         return ReturnUtil.Success("加载成功", map, null);
     }

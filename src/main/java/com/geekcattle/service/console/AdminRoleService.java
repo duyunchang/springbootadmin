@@ -32,7 +32,7 @@ public class AdminRoleService {
         //Example example = new Example(AdminRole.class);
         //example.createCriteria().andCondition("admin_id =", id);
         //adminRoleMapper.deleteByExample(example);
-    	adminRoleMapper.delete(id);
+    	adminRoleMapper.deleteByAdminId(id);
     }
 
     @Transactional
@@ -40,12 +40,12 @@ public class AdminRoleService {
         //Example example = new Example(AdminRole.class);
        // example.createCriteria().andCondition("role_id =", id);
        // adminRoleMapper.deleteByExample(example);
-    	adminRoleMapper.delete(id);
+    	adminRoleMapper.deleteByRoleId(id);
     }
 
-    public AdminRole selectOne(AdminRole adminRole){
-        return adminRoleMapper.findOne(adminRole.getAdminId());
-    }
+//    public AdminRole selectOne(AdminRole adminRole){
+//        return adminRoleMapper.findByAdminId(adminRole.getAdminId());
+//    }
 
     public List<AdminRole> getRoleList(AdminRole adminRole){
     	

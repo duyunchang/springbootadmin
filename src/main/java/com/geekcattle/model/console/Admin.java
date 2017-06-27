@@ -3,114 +3,99 @@
  */
 
 package com.geekcattle.model.console;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.geekcattle.model.BaseEntity;
-import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name="admin")
-public class Admin extends BaseEntity implements Serializable {
+@Table(name = "admin")
+public class Admin  implements Serializable {//extends BaseEntity
 
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7539126739028335926L;
 
 	@Id
-    @Column(name = "uid")
-    //@GeneratedValue(generator = "UUID")
-	//@GeneratedValue
-    private String uid;
+	@Column(name = "uid")
+	private String uid;
 
-    @NotEmpty(message="账号不能为空")
-    @Column(name="username")
-    private String username;
+	@NotEmpty(message = "账号不能为空")
+	@Column(name = "username")
+	private String username;
 
-    @Column(name="password")
-    private String password;
-    @Column(name="salt")
-    private String salt;
-    @Column(name="state")
-    private Integer state;
-    @Column(name="is_system")
-    private Integer isSystem;
-    @Column(name="created_at")
-    private Date createdAt;
-    @Column(name="updated_at")
-    private Date updatedAt;
+	@Column(name = "password")
+	private String password;
+	@Column(name = "salt")
+	private String salt;
+	@Column(name = "state")
+	private Integer state;
+	@Column(name = "is_system")
+	private Integer isSystem;  //1为管理员，其他按权限查询
+	@Column(name = "created_at")
+	private Date createdAt;
+	@Column(name = "updated_at")
+	private Date updatedAt;
 
-    @Transient
-    @JsonIgnore
-    private String sort = "";
+	@Transient
+	private String[] roleId;
 
-    @Transient
-    @JsonIgnore
-    private String order = "";
+	@Transient
+	private List<Role> roleList;
 
-    @Transient
-    private String[] roleId;
+	public String getUid() {
+		return uid;
+	}
 
-    @Transient
-    private List<Role> roleList;
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
 
-    public String getUid() {
-        return uid;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public String getUsername() {
-        return username;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public String getSalt() {
+		return salt;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
 
-    public String getSalt() {
-        return salt;
-    }
+	public Integer getState() {
+		return state;
+	}
 
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
+	public void setState(Integer state) {
+		this.state = state;
+	}
 
-    public Integer getState() {
-        return state;
-    }
+	public Integer getIsSystem() {
+		return isSystem;
+	}
 
-    public void setState(Integer state) {
-        this.state = state;
-    }
+	public void setIsSystem(Integer isSystem) {
+		this.isSystem = isSystem;
+	}
 
-    public Integer getIsSystem() {
-        return isSystem;
-    }
-
-    public void setIsSystem(Integer isSystem) {
-        this.isSystem = isSystem;
-    }
-
-   
-
-    public Date getCreatedAt() {
+	public Date getCreatedAt() {
 		return createdAt;
 	}
 
@@ -126,68 +111,36 @@ public class Admin extends BaseEntity implements Serializable {
 		this.updatedAt = updatedAt;
 	}
 
-	public String getSort() {
-        if(StringUtils.isEmpty(sort)){
-            return "createdAt";
-        }else{
-            return sort;
-        }
-    }
+	/**
+	 * 密码盐.
+	 * 
+	 * @return
+	 */
+	public String getCredentialsSalt() {
+		return this.username + this.salt;
+	}
 
-    public void setSort(String sort) {
-        this.sort = sort;
-    }
+	public String[] getRoleId() {
+		return roleId;
+	}
 
-    public String getOrder() {
-        if(StringUtils.isEmpty(sort)){
-            return "desc";
-        }else{
-            return order;
-        }
-    }
+	public void setRoleId(String[] roleId) {
+		this.roleId = roleId;
+	}
 
-    public void setOrder(String order) {
-        this.order = order;
-    }
+	public List<Role> getRoleList() {
+		return roleList;
+	}
 
-    /**
-     * 密码盐.
-     * @return
-     */
-    public String getCredentialsSalt(){
-        return this.username+this.salt;
-    }
+	public void setRoleList(List<Role> roleList) {
+		this.roleList = roleList;
+	}
 
-    public String[] getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(String[] roleId) {
-        this.roleId = roleId;
-    }
-
-    public List<Role> getRoleList() {
-        return roleList;
-    }
-
-    public void setRoleList(List<Role> roleList) {
-        this.roleList = roleList;
-    }
-
-    @Override
-    public String toString() {
-        return "Admin{" +
-                "uid='" + uid + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", salt='" + salt + '\'' +
-                ", state=" + state +
-                ", createdAt='" + createdAt + '\'' +
-                ", updatedAt='" + updatedAt + '\'' +
-                ", sort='" + sort + '\'' +
-                ", order='" + order + '\'' +
-                ", roleList=" + roleList +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "Admin [uid=" + uid + ", username=" + username + ", password=" + password + ", salt=" + salt + ", state="
+				+ state + ", isSystem=" + isSystem + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
+				+ ", roleId=" + Arrays.toString(roleId) + ", roleList=" + roleList + "]";
+	}
 
 }

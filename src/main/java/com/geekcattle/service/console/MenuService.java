@@ -7,6 +7,7 @@ package com.geekcattle.service.console;
 import com.geekcattle.manager.BaseNativeSqlRepository;
 import com.geekcattle.manager.console.AdminMapper;
 import com.geekcattle.manager.console.MenuMapper;
+import com.geekcattle.model.BaseEntity;
 import com.geekcattle.model.console.Admin;
 import com.geekcattle.model.console.Menu;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,17 +38,20 @@ public class MenuService {
     
     @Autowired
     private BaseNativeSqlRepository  BaseNativeSqlManager;
+    
+    @Autowired 
+    private BaseEntity baseEntity;
 
     public List<Menu> getPageList(Menu menu) {
     	
     	List<Order> orders=new ArrayList<>();
-		Order orderc=new Order(Sort.Direction.DESC, "created_at");
+		Order orderc=new Order(Sort.Direction.DESC, "createdAt");
 		Order orderl=new Order(Sort.Direction.ASC, "listorder");
 		orders.add(orderl);
 		orders.add(orderc);
 		Sort sort = new Sort(orders);  
 		
-    	Pageable pageable = new PageRequest(menu.getOffset(), menu.getLimit(), sort); 
+    	Pageable pageable = new PageRequest(baseEntity.getOffset(), baseEntity.getLimit(), sort); 
     	Page<Menu> findAll = menuMapper.findAll(pageable);
     	
     	return findAll.getContent();
@@ -59,7 +63,7 @@ public class MenuService {
     public List<Menu> getMenuAll(){
     	//Sort sort = new Sort(Sort.Direction.ASC, "listorder");  
     	List<Order> orders=new ArrayList<>();
-		Order orderc=new Order(Sort.Direction.DESC, "created_at");
+		Order orderc=new Order(Sort.Direction.DESC, "createdAt");
 		Order orderl=new Order(Sort.Direction.ASC, "listorder");
 		orders.add(orderl);
 		orders.add(orderc);
@@ -73,7 +77,7 @@ public class MenuService {
         //PageHelper.orderBy("listorder asc, created_at desc");
     	
 		List<Order> orders=new ArrayList<>();
-		Order orderc=new Order(Sort.Direction.DESC, "created_at");
+		Order orderc=new Order(Sort.Direction.DESC, "createdAt");
 		Order orderl=new Order(Sort.Direction.ASC, "listorder");
 		orders.add(orderl);
 		orders.add(orderc);
@@ -87,7 +91,7 @@ public class MenuService {
         //example.createCriteria().andCondition("parent_id = ", parentId);
         //PageHelper.orderBy("listorder asc, created_at desc");
         List<Order> orders=new ArrayList<>();
-		Order orderc=new Order(Sort.Direction.DESC, "created_at");
+		Order orderc=new Order(Sort.Direction.DESC, "createdAt");
 		Order orderl=new Order(Sort.Direction.ASC, "listorder");
 		orders.add(orderl);
 		orders.add(orderc);
@@ -129,23 +133,26 @@ public class MenuService {
     }
 
     public Set<String> findMenuCodeByUserId(String userId) {
-    	List<Menu> list= BaseNativeSqlManager.findMenuCodeByUserId(userId);
-    	Set<String>  set=new HashSet<String>();
-    	for(Menu menu:list){
-    		set.add(menu.getMenuCode());
-    		
-    	}
+    	//主页list不能重复
+    	List<String> list= BaseNativeSqlManager.findMenuCodeByUserId(userId);    	
+    	Set<String> set= new HashSet<String>();
+        set.addAll(list);
+//    	Set<String>  set=new HashSet<String>();
+//    	for(String menu:list){
+//    		set.add(menu.);
+//    		
+//    	}
     	return set;
     }
 
     public Set<String> getAllMenuCode() {
-    	List<Menu> findAll = menuMapper.findAll();
-    	Set<String>  set=new HashSet<String>();
-    	for(Menu menu:findAll){
-    		
-    		set.add(menu.getMenuCode());
-    	}
-    	
+//    	List<Menu> findAll = menuMapper.findAll();
+//    	Set<String>  set=new HashSet<String>();
+//    	for(Menu menu:findAll){
+//    		
+//    		set.add(menu.getMenuCode());
+//    	}
+    	Set<String>  set=menuMapper.getALLMenuCode();
     	
         return set;
     }
@@ -180,14 +187,7 @@ public class MenuService {
         //PageHelper.orderBy("listorder asc, created_at desc");
         //List<Menu> List = menuMapper.selectByExample(example);
        
-        List<Order> orders=new ArrayList<>();
-		Order orderc=new Order(Sort.Direction.DESC, "created_at");
-		Order orderl=new Order(Sort.Direction.ASC, "listorder");
-		orders.add(orderl);
-		orders.add(orderc);
-		
-    	Sort sort = new Sort(orders);
-    	List<Menu> List = menuMapper.findAll(sort);
+    	List<Menu> List = menuMapper.findByParentId( parentId);
         for(Menu menu : List){
             menuLists.add(menu);
             /*if(menu.getChildNum() > 0){

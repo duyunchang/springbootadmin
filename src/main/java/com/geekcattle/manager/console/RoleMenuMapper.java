@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.geekcattle.model.console.RoleMenu;
 
-public interface RoleMenuMapper extends JpaRepository<RoleMenu,String> {
+public interface RoleMenuMapper extends JpaRepository<RoleMenu,Long> {
 	
 	 @Query("from RoleMenu r where r.roleId=?1 ")
 	 List<RoleMenu> findByRoleId(String roleId);

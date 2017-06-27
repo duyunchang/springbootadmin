@@ -6,6 +6,7 @@ package com.geekcattle.service.console;
 
 import com.geekcattle.manager.BaseNativeSqlRepository;
 import com.geekcattle.manager.console.RoleMapper;
+import com.geekcattle.model.BaseEntity;
 import com.geekcattle.model.console.Admin;
 import com.geekcattle.model.console.Role;
 import com.geekcattle.util.CamelCaseUtil;
@@ -33,10 +34,13 @@ public class RoleService {
 
     @Autowired
     private BaseNativeSqlRepository  BaseNativeSqlManager;
+    
+    @Autowired 
+    private BaseEntity baseEntity;
 
     public List<Role> getPageList(Role role) {
-    	Sort sort = new Sort(Sort.Direction.DESC, "created_at");  
-    	Pageable pageable = new PageRequest(role.getOffset(), role.getLimit(), sort); 
+    	Sort sort = new Sort(Sort.Direction.DESC, "createdAt");  
+    	Pageable pageable = new PageRequest(baseEntity.getOffset(), baseEntity.getLimit(), sort); 
         //PageHelper.offsetPage(role.getOffset(), role.getLimit(), CamelCaseUtil.toUnderlineName(role.getSort())+" "+role.getOrder());
         return roleMapper.findAll(pageable).getContent();
     }
@@ -81,17 +85,17 @@ public class RoleService {
     }
 
     public Set<String> findRoleByUserId(String userId) {
-    	List<Role> findRoleByUserId = BaseNativeSqlManager.findRoleByUserId(userId);
+    	List<String> findRoleByUserId = BaseNativeSqlManager.findRoleByUserId(userId);
     	Set<String>  set=new HashSet<String>();
-    	for(Role role:findRoleByUserId){
-    		set.add(role.getRoleName());
-    		
-    	}
+    	set.addAll(findRoleByUserId);
+    	
         return set;
     }
 
     public List<Role> selectRoleListByAdminId(String Id){
         return BaseNativeSqlManager.selectRoleListByAdminId(Id);
+        
+       // return  roleMapper.selectRoleListByAdminId(Id);
     }
 
 }

@@ -46,11 +46,14 @@ public class RoleMenuService {
         roleMenuMapper.deleteByRoleId(id);
     }
 
-    public RoleMenu selectOne(RoleMenu roleMenu){
-        return roleMenuMapper.findOne(roleMenu.getMenuId());
-    }
+//    public RoleMenu selectOne(RoleMenu roleMenu){
+//        
+//    	
+//    	return roleMenuMapper.findByRoleId(roleMenu.getRoleId());
+//    }
 
     public List<RoleMenu> getRoleList(RoleMenu roleMenu){
+    	
         return roleMenuMapper.findByRoleId(roleMenu.getRoleId());
     }
 
