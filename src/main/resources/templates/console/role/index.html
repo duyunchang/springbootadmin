@@ -12,7 +12,7 @@
     <table id="dataGrid"></table>
 </section>
 <div id="toolbar">
-    <a href="/console/role/from" class="btn btn-primary" >添加角色</a>
+    <a href="/barber/console/role/from" class="btn btn-primary" >添加角色</a>
 </div>
 <div th:include="console/footer"></div>
 
@@ -34,7 +34,7 @@
                 {title: "更新日期", field: "updatedAt", sortable: true},
                 {title: "操作", field: "operate", align: 'center', events: operateEvents, formatter: operateFormatter}
             ]],
-            url: '/console/role/list',
+            url: '/barber/console/role/list',
             queryParams: function(params){
                 return params;
             },
@@ -61,7 +61,7 @@
             '<a class="grant" href="javascript:void(0);" >',
             '<i class="glyphicon glyphicon-edit"></i>授权',
             '</a>  ',
-            '<a href="/console/role/from?roleId='+row.roleId+'" >',
+            '<a href="/barber/console/role/from?roleId='+row.roleId+'" >',
             '<i class="glyphicon glyphicon-edit"></i>修改',
             '</a>  ',
             '<a class="remove" href="javascript:void(0);">',
@@ -72,7 +72,7 @@
 
     window.operateEvents = {
         'click .remove' : function (e, value, row, index) {
-            operaModel.delRow(row.roleId, '/console/role/delete', 'roleId');
+            operaModel.delRow(row.roleId, '/barber/console/role/delete', 'roleId');
         },
         'click .grant' : function (e, value, row, index) {
             layer.open({
@@ -82,7 +82,7 @@
                 shade: false,
                 maxmin: true, //开启最大化最小化按钮
                 area: ['500px', '600px'],
-                content: '/console/role/grant/?roleId=' + row.roleId
+                content: '/barber/console/role/grant/?roleId=' + row.roleId
             });
         }
     };

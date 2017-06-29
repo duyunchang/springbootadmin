@@ -35,12 +35,12 @@ public class AdminFormAuthenticationFilter extends FormAuthenticationFilter {
 
     @Override
     public void setLoginUrl(String loginUrl) {
-        super.setLoginUrl("/console/login");
+        super.setLoginUrl("/barber/console/login");
     }
 
     @Override
     public void setSuccessUrl(String successUrl) {
-        super.setSuccessUrl("/console/index");
+        super.setSuccessUrl("/barber/console/index");
     }
 
 }

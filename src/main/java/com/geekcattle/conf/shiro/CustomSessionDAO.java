@@ -17,7 +17,7 @@ public class CustomSessionDAO extends EnterpriseCacheSessionDAO {
     @Override
     public void setSessionIdGenerator(SessionIdGenerator sessionIdGenerator) {
         sessionIdGenerator = new JavaUuidSessionIdGenerator();
-        System.out.println("SessionID"+ sessionIdGenerator);
+        //System.out.println("SessionID"+ sessionIdGenerator);
         super.setSessionIdGenerator(sessionIdGenerator);
     }
 }

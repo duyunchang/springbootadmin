@@ -19,7 +19,7 @@
     </div>
 </section>
 <div th:include="console/footer"></div>
-<script type="text/javascript" src="/static/js/treeview.js"></script>
+<script type="text/javascript" src="/barber/static/assets/bootstrap-treeview/dist/bootstrap-treeview.min.js"></script>
 <script type="text/javascript">
 (function () {
     getMenuTree();
@@ -28,7 +28,7 @@
         var checkNodes = $('ul.list-group>li.node-checked').map(function () {
             return $('#menuTree').treeview('getNode',[$(this).data('nodeid')]).id;
         }).get().join(",");
-        $.post('/console/role/grant',{roleId: _roleId , menuIds: checkNodes},function (data) {
+        $.post('/barber/console/role/grant',{roleId: _roleId , menuIds: checkNodes},function (data) {
             if(data.status == 1){
                 layer.msg(data.msg, {icon: 1}, function () {
                     layerModel.closeParent();
@@ -42,7 +42,7 @@
 })();
 function getMenuTree() {
     var _roleId = $("button.btn-primary").data('id');
-    $.getJSON('/console/role/menutree', {id:_roleId}, function (data) {
+    $.getJSON('/barber/console/role/menutree', {id:_roleId}, function (data) {
         if(data.status == 1){
             $('#menuTree').treeview({
                 data : data.result,

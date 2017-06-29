@@ -25,7 +25,7 @@ public class IndexController {
     @RequestMapping(value = "/test",method = {RequestMethod.GET})
     public String test(Model model){
         String rq = DateUtil.getCurrentTime();
-        System.out.println(rq);
+        //System.out.println(rq);
         model.addAttribute("rq", rq);
         return "test/test";
     }

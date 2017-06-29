@@ -37,7 +37,7 @@ public class HomeController {
         try {
         	
             Member member = (Member) SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
-            System.out.println(member);
+            //System.out.println(member);
             if(!"null".equals(member)){
                 return "redirect:/member/index";
             }

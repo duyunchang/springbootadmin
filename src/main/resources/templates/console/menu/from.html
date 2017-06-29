@@ -12,7 +12,7 @@
                     <h3 class="box-title" th:text="'资源'+${#strings.isEmpty(menu.menuId)?'添加':'修改'}"></h3>
                 </div>
                 <div class="box-body">
-                    <form class="form-horizontal js-ajax-form" action="/console/menu/save" method="post">
+                    <form class="form-horizontal js-ajax-form" action="/barber/console/menu/save" method="post">
                         <input type="hidden" name="menuId" id="menuId" th:value="${menu.menuId}" />
                         <input type="hidden" name="createdAt" th:value="${menu.createdAt}" />
                         <input type="hidden" name="updatedAt" th:value="${menu.updatedAt}" />

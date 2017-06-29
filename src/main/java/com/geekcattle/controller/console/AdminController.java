@@ -160,7 +160,7 @@ public class AdminController {
             }else{
                 adminRoleService.deleteAdminId(admin.getUid());
             }
-            return ReturnUtil.Success("操作成功", null, "/console/admin/index");
+            return ReturnUtil.Success("操作成功", null, "console/admin/index");
         } catch (Exception e) {
             e.printStackTrace();
             return ReturnUtil.Error("操作失败", null, null);

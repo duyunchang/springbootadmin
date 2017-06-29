@@ -203,16 +203,19 @@ public class ShiroConfiguration {
         //<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
         filterChainDefinitionMap.put("/**/login", "anon");
         filterChainDefinitionMap.put("/**/logout", "logout");
-        filterChainDefinitionMap.put("/member/reg", "anon");
+        filterChainDefinitionMap.put("/barber/member/reg", "anon");
+        filterChainDefinitionMap.put("/barber/static/**", "anon");
+        //filterChainDefinitionMap.put("/barber/member/login", "anon");
         //配置记住我或认证通过可以访问的地址
-        filterChainDefinitionMap.put("/console/**", "admin");
-        filterChainDefinitionMap.put("/member/**", "custom");
+        filterChainDefinitionMap.put("/barber/console/**", "admin");
+        //filterChainDefinitionMap.put("/barber/**", "admin");
+        filterChainDefinitionMap.put("/barber/member/**", "custom");
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
         //shiroFilterFactoryBean.setLoginUrl("/member/login");
         // 登录成功后要跳转的链接
         //shiroFilterFactoryBean.setSuccessUrl("/member/index");
         //未授权界面;
-        //shiroFilterFactoryBean.setUnauthorizedUrl("/console/403");
+        shiroFilterFactoryBean.setUnauthorizedUrl("/barber/console/403");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }

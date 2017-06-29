@@ -22,6 +22,7 @@ public class ReturnUtil {
         mp.put("msg", msg);
         mp.put("referer", referer);
         mp.put("result", obj);
+        System.out.println(obj);
         return mp;
     }
 

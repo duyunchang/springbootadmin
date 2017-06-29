@@ -64,13 +64,14 @@ public class RoleController {
         List<Role> Lists = roleService.getPageList(role);
         for (Role list : Lists) {
             List<Menu> menuList = menuService.selectMenuByRoleId(list.getRoleId());
+            //System.out.println(list.getCreatedAt());
             list.setMenuList(menuList);
         }
-        System.out.println(Lists);
+        //System.out.println(Lists);
         
         map.put("pageInfo", new PageInfo<Role>(Lists));
         map.put("queryParam", role);
-        System.out.println(map);
+        ///System.out.println(map);
         return ReturnUtil.Success("加载成功", map, null);
     }
 
@@ -88,10 +89,12 @@ public class RoleController {
     @RequiresPermissions("role:save")
     @RequestMapping(value = "/save", method = {RequestMethod.POST})
     @ResponseBody
-    public ModelMap save(@Valid Role role, BindingResult result) {
+    public ModelMap save(String roleId, BindingResult result) {//@Valid Role role,
         if (result.hasErrors()) {
             for (ObjectError er : result.getAllErrors()) return ReturnUtil.Error(er.getDefaultMessage(), null, null);
         }
+        Role role=new Role();
+        role.setRoleId(roleId);
         try {
             if (StringUtils.isEmpty(role.getRoleId())) {
                 role.setRoleId(UuidUtil.getUUID());
@@ -99,6 +102,7 @@ public class RoleController {
                 role.setUpdatedAt(new Date());
                 roleService.insert(role);
             } else {
+            	role.setCreatedAt(new Date());
                 role.setUpdatedAt(new Date());
                 roleService.save(role);
             }

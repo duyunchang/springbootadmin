@@ -42,7 +42,11 @@ public class RoleService {
     	Sort sort = new Sort(Sort.Direction.DESC, "createdAt");  
     	Pageable pageable = new PageRequest(baseEntity.getOffset(), baseEntity.getLimit(), sort); 
         //PageHelper.offsetPage(role.getOffset(), role.getLimit(), CamelCaseUtil.toUnderlineName(role.getSort())+" "+role.getOrder());
-        return roleMapper.findAll(pageable).getContent();
+    	List<Role> content =roleMapper.findAllpage(pageable);
+    	
+    	//List<Role> content = roleMapper.findAll(pageable).getContent();
+    	return content;
+        
     }
 
     public List<Role> getFromAll(){

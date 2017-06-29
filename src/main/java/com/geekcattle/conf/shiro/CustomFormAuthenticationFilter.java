@@ -35,11 +35,11 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
 
     @Override
     public void setLoginUrl(String loginUrl) {
-        super.setLoginUrl("/member/login");
+        super.setLoginUrl("/barber/member/login");
     }
 
     @Override
     public void setSuccessUrl(String successUrl) {
-        super.setSuccessUrl("/member/index");
+        super.setSuccessUrl("/barber/member/index");
     }
 }
