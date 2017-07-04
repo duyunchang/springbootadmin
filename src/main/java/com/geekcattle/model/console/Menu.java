@@ -7,9 +7,13 @@ package com.geekcattle.model.console;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.geekcattle.util.DateUtil;
+
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -24,15 +28,13 @@ public class Menu  implements Serializable {//extends BaseEntity
 
 	@Id
 	@Column(name = "menu_id")
-	// @GeneratedValue(generator = "UUID")
-	// @GeneratedValue
 	private String menuId;
 
 	@NotEmpty(message = "菜单名称不能为空")
 	@Column(name = "menu_name")
 	private String menuName;
 
-	@Column(name = "menu_type", columnDefinition = "enum('menu','auth','button')")
+	@Column(name = "menu_type", columnDefinition = "enum('menu','auth','button')")//'资源类型，菜单或都按钮(menu,button)',
 	private String menuType;
 
 	@NotEmpty(message = "菜单URL不能为空")
@@ -46,14 +48,19 @@ public class Menu  implements Serializable {//extends BaseEntity
 	@NotEmpty(message = "父类ID不能为空")
 	@Column(name = "parent_id")
 	private String parentId;
+	
 	@Column(name = "parent_ids")
 	private String parentIds;
+	
 	@Column(name = "child_num")
 	private Integer childNum;
+	
 	@Column(name = "listorder")
 	private Integer listorder;
+	
 	@Column(name = "created_at")
 	private Date createdAt;
+	
 	@Column(name = "updated_at")
 	private Date updatedAt;
 
@@ -143,6 +150,8 @@ public class Menu  implements Serializable {//extends BaseEntity
 	}
 
 	public void setCreatedAt(Date createdAt) {
+		
+		
 		this.createdAt = createdAt;
 	}
 

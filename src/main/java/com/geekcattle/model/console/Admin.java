@@ -30,14 +30,18 @@ public class Admin  implements Serializable {//extends BaseEntity
 
 	@Column(name = "password")
 	private String password;
-	@Column(name = "salt")
-	private String salt;
+	
 	@Column(name = "state")
 	private Integer state;
+	
+	@Column(name = "salt")
+	private String salt;
+	
 	@Column(name = "is_system")
 	private Integer isSystem;  //1为管理员，其他按权限查询
 	@Column(name = "created_at")
 	private Date createdAt;
+	
 	@Column(name = "updated_at")
 	private Date updatedAt;
 

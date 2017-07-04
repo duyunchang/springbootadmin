@@ -27,19 +27,23 @@ public class Member extends BaseEntity implements Serializable {
 
 	@Id
 	@Column(name = "uid")
-	// @GeneratedValue(generator = "UUID")
-	// @GeneratedValue
 	private String uid;
+	
 	@Column(name = "account")
 	private String account;
+	
 	@Column(name = "password")
 	private String password;
+	
 	@Column(name = "salt")
 	private String salt;
+	
 	@Column(name = "state")
 	private Integer state;//0账号锁定
+	
 	@Column(name = "created_at")
 	private Date createdAt;
+	
 	@Column(name = "updated_at")
 	private Date updatedAt;
 

@@ -4,6 +4,7 @@
 
 package com.geekcattle.service.console;
 
+import com.geekcattle.Constants.Constants;
 import com.geekcattle.manager.BaseNativeSqlRepository;
 import com.geekcattle.manager.console.RoleMapper;
 import com.geekcattle.model.BaseEntity;
@@ -79,13 +80,23 @@ public class RoleService {
     }
 
     @Transactional
-    public void save(Role role) {
-        roleMapper.save(role);
+    public int save(Role role) {
+    	int flag=Constants.update_fail;
+    	
+    	if(Constants.update_fail==roleMapper.findCountByRoleName(role.getRoleName())){    		
+    		 roleMapper.save(role);  		 
+    		 flag=Constants.update_success;
+    	}
+       return flag;
     }
 
     @Transactional
-    public void insert(Role role){
-        roleMapper.save(role);
+    public int insert(Role role){
+        Role save = roleMapper.save(role);
+        if(save==null){
+        	return Constants.update_fail;
+        }
+        return Constants.update_success;
     }
 
     public Set<String> findRoleByUserId(String userId) {

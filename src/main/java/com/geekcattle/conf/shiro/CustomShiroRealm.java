@@ -35,7 +35,7 @@ public class CustomShiroRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-        System.out.println("前台登录认证：CustomShiroRealm.doGetAuthenticationInfo()");
+        System.out.println("前台登录认证：CustomShiroRealm.doGetAuthenticationInfo()"+token);
         //获取用户的输入的账号.
         String username = (String)token.getPrincipal();
 

@@ -6,10 +6,8 @@ package com.geekcattle.model.console;
 
 
 import org.hibernate.validator.constraints.NotEmpty;
-import org.joda.time.DateTime;
 
 import javax.persistence.*;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -24,7 +22,7 @@ public class Role  implements Serializable {//extends BaseEntity
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 4705412524120316988L;
+	private static final long serialVersionUID = -8282261354486090072L;
 
 	@Id
 	@Column(name = "role_id")
@@ -37,7 +35,7 @@ public class Role  implements Serializable {//extends BaseEntity
 	@Column(name = "role_desc")
 	private String roleDesc;
 
-	@Column(name = "enable", columnDefinition = "enum(1,0)")
+	@Column(name = "enable", columnDefinition = "enum(1,0)")//
 	private Integer enable;
 	
 	@Column(name = "created_at")
@@ -45,15 +43,6 @@ public class Role  implements Serializable {//extends BaseEntity
 	
 	@Column(name = "updated_at")
 	private Date updatedAt;
-
-//	@Transient
-//	private String uid;
-//	
-//	@Transient
-//	private String username;
-//	
-//	@Transient
-//	private Integer state;
 	
 	@Transient
 	private Admin admin;
@@ -66,7 +55,6 @@ public class Role  implements Serializable {//extends BaseEntity
 
     @Transient
     private List<Admin> adminList;// 一个角色对应多个用户*/
-    
 
 	public String getRoleId() {
 		return roleId;
@@ -116,8 +104,14 @@ public class Role  implements Serializable {//extends BaseEntity
 		this.updatedAt = updatedAt;
 	}
 
-	
-	
+	public Admin getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(Admin admin) {
+		this.admin = admin;
+	}
+
 	public List<Menu> getMenuList() {
 		return menuList;
 	}
@@ -134,18 +128,13 @@ public class Role  implements Serializable {//extends BaseEntity
 		this.adminList = adminList;
 	}
 
-	public Admin getAdmin() {
-		return admin;
-	}
-
-	public void setAdmin(Admin admin) {
-		this.admin = admin;
-	}
-
 	@Override
 	public String toString() {
 		return "Role [roleId=" + roleId + ", roleName=" + roleName + ", roleDesc=" + roleDesc + ", enable=" + enable
-				+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
+				+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", admin=" + admin + ", menuList="
+				+ menuList + ", adminList=" + adminList + "]";
 	}
+    
+
 
 }

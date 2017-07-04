@@ -4,6 +4,7 @@
 
 package com.geekcattle.controller.console;
 
+import com.geekcattle.Constants.Constants;
 import com.geekcattle.model.console.*;
 import com.geekcattle.service.console.AdminRoleService;
 import com.geekcattle.service.console.MenuService;
@@ -89,28 +90,38 @@ public class RoleController {
     @RequiresPermissions("role:save")
     @RequestMapping(value = "/save", method = {RequestMethod.POST})
     @ResponseBody
-    public ModelMap save(String roleId, BindingResult result) {//@Valid Role role,
+    public ModelMap save(@Valid Role role, BindingResult result) {//@Valid Role role,
         if (result.hasErrors()) {
             for (ObjectError er : result.getAllErrors()) return ReturnUtil.Error(er.getDefaultMessage(), null, null);
         }
-        Role role=new Role();
-        role.setRoleId(roleId);
+       // Role role=new Role();
+       // role.setRoleId(roleId);
+        int flag=0;
         try {
+        	
             if (StringUtils.isEmpty(role.getRoleId())) {
                 role.setRoleId(UuidUtil.getUUID());
                 role.setCreatedAt(new Date());
                 role.setUpdatedAt(new Date());
-                roleService.insert(role);
+                flag=roleService.save(role);
             } else {
             	role.setCreatedAt(new Date());
                 role.setUpdatedAt(new Date());
-                roleService.save(role);
+                flag=roleService.insert(role);
+                
             }
-            return ReturnUtil.Success("操作成功", null, "/console/role/index");
+            
         } catch (Exception e) {
             e.printStackTrace();
             return ReturnUtil.Error("操作失败", null, null);
         }
+        
+        if(flag==Constants.update_success){
+        	return ReturnUtil.Success("操作成功", null, "/barber/console/role/index");
+        }else{
+        	return ReturnUtil.Error("操作失败", null, null);
+        }
+        
     }
 
     @RequiresPermissions("role:delete")
