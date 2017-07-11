@@ -1,20 +1,17 @@
-/*
- * Copyright (c) 2017 <l_iupeiyu@qq.com> All rights reserved.
- */
 
 package com.geekcattle.service.console;
 
+import com.geekcattle.domain.entity.console.AdminRole;
 import com.geekcattle.manager.console.AdminRoleMapper;
-import com.geekcattle.model.console.AdminRole;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
- * author geekcattle
- * date 2016/12/6 0006 上午 10:45
+ * author 
  */
 @Service
 public class AdminRoleService {
@@ -22,30 +19,30 @@ public class AdminRoleService {
     @Autowired
     private AdminRoleMapper adminRoleMapper;
 
-    @Transactional
     public void insert(AdminRole adminRole){
         adminRoleMapper.save(adminRole);
     }
 
-    @Transactional
-    public void deleteAdminId(String id){
-        //Example example = new Example(AdminRole.class);
-        //example.createCriteria().andCondition("admin_id =", id);
-        //adminRoleMapper.deleteByExample(example);
-    	adminRoleMapper.deleteByAdminId(id);
+    
+    public void deleteAdminIds(String[] ids){
+        
+    	adminRoleMapper.deleteByAdminIdIn(ids);
     }
 
-    @Transactional
-    public void deleteRoleId(String id){
-        //Example example = new Example(AdminRole.class);
-       // example.createCriteria().andCondition("role_id =", id);
-       // adminRoleMapper.deleteByExample(example);
-    	adminRoleMapper.deleteByRoleId(id);
+    public void deleteRoleIds(String[] ids){
+       
+    	adminRoleMapper.deleteByRoleIdIn(ids);    	
     }
-
-//    public AdminRole selectOne(AdminRole adminRole){
-//        return adminRoleMapper.findByAdminId(adminRole.getAdminId());
-//    }
+    public int deleteRoleId(String role_id){
+        
+    	return adminRoleMapper.deleteByRoleId(role_id);   	
+    }
+    
+    public int  deleteAdminId(String uid){
+    	
+    	return adminRoleMapper.deleteByAdminId(uid);
+    }
+   
 
     public List<AdminRole> getRoleList(AdminRole adminRole){
     	

@@ -30,8 +30,8 @@
             <td th:text="${menu.createdAt}"></td>
             <td th:text="${menu.updatedAt}"></td>
             <td>
-                <a th:href="${'/console/menu/from?parentId='+menu.menuId}" ><i class="glyphicon glyphicon-add"></i>添加子菜单</a>
-                <a th:href="${'/console/menu/from?menuId='+menu.menuId}" ><i class="glyphicon glyphicon-edit"></i>修改</a>
+                <a th:href="${'/barber/console/menu/from?parentId='+menu.menuId}" ><i class="glyphicon glyphicon-add"></i>添加子菜单</a>
+                <a th:href="${'/barber/console/menu/from?menuId='+menu.menuId}" ><i class="glyphicon glyphicon-edit"></i>修改</a>
                 <a class="remove" th:attr="data-id=${menu.menuId}" href="javascript:void(0);"><i class="glyphicon glyphicon-remove"></i>删除</a></td>
         </tr>
     </table>

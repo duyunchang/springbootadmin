@@ -1,19 +1,15 @@
-/*
- * Copyright (c) 2017 <l_iupeiyu@qq.com> All rights reserved.
- */
 
 package com.geekcattle.util.console;
 
-import com.geekcattle.model.console.Menu;
-import com.geekcattle.model.console.Role;
-import com.geekcattle.model.console.RoleMenu;
 import org.apache.commons.lang3.StringUtils;
+
+import com.geekcattle.domain.entity.console.Menu;
+import com.geekcattle.domain.entity.console.RoleMenu;
 
 import java.util.*;
 
 /**
- * author geekcattle
- * date 2016/10/21 0021 下午 15:58
+ * author 
  */
 public class MenuTreeUtil {
 

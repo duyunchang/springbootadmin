@@ -1,6 +1,3 @@
-/*
- * Copyright (c) 2017 <l_iupeiyu@qq.com> All rights reserved.
- */
 
 package com.geekcattle.conf;
 
@@ -24,7 +21,12 @@ public class ErrorPageConfig {
 
         @Override
         public void customize(ConfigurableEmbeddedServletContainer container) {
-            container.addErrorPages(new ErrorPage(HttpStatus.FORBIDDEN, "/index.html"));
+        	//其他错误
+            container.addErrorPages(new ErrorPage(HttpStatus.FORBIDDEN, "/403"));
+            //500返回首页
+            container.addErrorPages(new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/"));
+            //404跳到404页面
+            container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/404"));
             
         }
 

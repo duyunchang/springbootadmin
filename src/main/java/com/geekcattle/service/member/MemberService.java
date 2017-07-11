@@ -1,26 +1,18 @@
-/*
- * Copyright (c) 2017 <l_iupeiyu@qq.com> All rights reserved.
- */
 
 package com.geekcattle.service.member;
 
+import com.geekcattle.domain.entity.member.Member;
 import com.geekcattle.manager.member.MemberMapper;
-import com.geekcattle.model.console.Admin;
-import com.geekcattle.model.member.Member;
-import com.geekcattle.util.CamelCaseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
- * author geekcattle
- * date 2017/3/23 0023 上午 11:25
+ * author 
  */
 @Service
 public class MemberService {
@@ -36,8 +28,8 @@ public class MemberService {
         //return memberMapper.selectAll();
     }
 
-    public Integer getCount(String account){
-    	return memberMapper.findByAccount(account).size();
+    public int getCount(String account){
+    	return memberMapper.findByAccount(account);
         //return memberMapper.selectCountByExample(example);
     }
 
@@ -45,7 +37,7 @@ public class MemberService {
         return memberMapper.selectByUsername(username);
     }
 
-    @Transactional
+   
     public void insert(Member member){
         memberMapper.save(member);
     }

@@ -1,12 +1,8 @@
-/*
- * Copyright (c) 2017 <l_iupeiyu@qq.com> All rights reserved.
- */
 
 package com.geekcattle.conf;
 
 /**
- * author geekcattle
- * date 2017/3/9 0009 下午 16:02
+ * author 
  */
 public enum  LoginEnum {
 

@@ -1,8 +1,5 @@
-/*
- * Copyright (c) 2017 <l_iupeiyu@qq.com> All rights reserved.
- */
 
-package com.geekcattle.model.console;
+package com.geekcattle.domain.entity.console;
 
 import java.io.Serializable;
 
@@ -12,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * author geekcattle date 2017/1/6 0006 上午 11:21
+ * author
  */
 @Entity
 @Table(name = "log")

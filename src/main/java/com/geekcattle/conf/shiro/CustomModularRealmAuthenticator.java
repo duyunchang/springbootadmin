@@ -1,6 +1,3 @@
-/*
- * Copyright (c) 2017 <l_iupeiyu@qq.com> All rights reserved.
- */
 
 package com.geekcattle.conf.shiro;
 
@@ -16,8 +13,7 @@ import java.util.Collection;
 import java.util.Map;
 
 /**
- * author geekcattle
- * date 2017/3/13 0013 下午 16:55
+ * author
  */
 public class CustomModularRealmAuthenticator extends ModularRealmAuthenticator {
 

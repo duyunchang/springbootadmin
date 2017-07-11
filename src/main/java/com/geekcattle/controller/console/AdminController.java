@@ -1,12 +1,8 @@
-/*
- * Copyright (c) 2017 <l_iupeiyu@qq.com> All rights reserved.
- */
-
 package com.geekcattle.controller.console;
 
-import com.geekcattle.model.console.Admin;
-import com.geekcattle.model.console.AdminRole;
-import com.geekcattle.model.console.Role;
+import com.geekcattle.domain.entity.console.Admin;
+import com.geekcattle.domain.entity.console.AdminRole;
+import com.geekcattle.domain.entity.console.Role;
 import com.geekcattle.service.console.AdminRoleService;
 import com.geekcattle.service.console.AdminService;
 import com.geekcattle.service.console.RoleService;
@@ -15,8 +11,8 @@ import com.github.pagehelper.PageInfo;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -31,8 +27,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * author geekcattle
- * date 2016/10/21 0021 下午 15:58
+ * author 
  */
 @Controller
 @RequestMapping("/console/admin")
@@ -59,11 +54,11 @@ public class AdminController {
         String checkRoleId = "";
         if (!StringUtils.isEmpty(admin.getUid())) {
             admin = adminService.getById(admin.getUid());
-            if (!"null".equals(admin)) {
+            if (admin!=null&&!"null".equals(admin)) {
                 AdminRole adminRole = new AdminRole();
                 adminRole.setAdminId(admin.getUid());
                 List<AdminRole> adminRoleLists = adminRoleService.getRoleList(adminRole);
-               // admin.setUpdatedAt(DateUtil.getCurrentTime());
+                //admin.setCreatedAt(new Date());
                 admin.setUpdatedAt(new Date());
                 
                 ArrayList<String> checkRoleIds = new ArrayList<String>();
@@ -92,7 +87,8 @@ public class AdminController {
     @ResponseBody
     public ModelMap list(Admin admin) {
         ModelMap map = new ModelMap();
-        List<Admin> Lists = adminService.getPageList(admin);
+       // List<Admin> Lists = adminService.getPageList(admin);
+        List<Admin> Lists = adminService. getPageList(admin);
         for (Admin list : Lists) {
             List<Role> rolelist = roleService.selectRoleListByAdminId(list.getUid());
             list.setRoleList(rolelist);
@@ -112,43 +108,35 @@ public class AdminController {
             if (result.hasErrors()) {
                 for (ObjectError er : result.getAllErrors())
                     return ReturnUtil.Error(er.getDefaultMessage(), null, null);
-            }
+            }	
+           // System.out.println("admin parms="+admin.toString());
+            admin.setCreatedAt(new Date());
+            admin.setUpdatedAt(new Date());
             if (StringUtils.isEmpty(admin.getUid())) {
-                //Example example = new Example(Admin.class);
-                //example.createCriteria().andCondition("username = ", admin.getUsername());
+            	if (StringUtils.isEmpty(admin.getPassword())) {
+                    return ReturnUtil.Error("密码不能为空", null, null);
+                }else if(StringUtils.isEmpty(admin.getUsername())){
+                	return ReturnUtil.Error("用户名不能为空", null, null);
+                }
+               
                 Integer userCount = adminService.getCount(admin.getUsername());
                 if (userCount > 0) {
                     return ReturnUtil.Error("用户名已存在", null, null);
                 }
-                if (StringUtils.isEmpty(admin.getPassword())) {
-                    return ReturnUtil.Error("密码不能为空", null, null);
-                }
-                String Id = UuidUtil.getUUID();
-                admin.setUid(Id);
-                String salt = new SecureRandomNumberGenerator().nextBytes().toHex();
-                admin.setSalt(salt);
-                String password = PasswordUtil.createAdminPwd(admin.getPassword(), admin.getCredentialsSalt());
-                admin.setPassword(password);
-                admin.setIsSystem(0);
-                admin.setCreatedAt(new Date());
-                admin.setUpdatedAt(new Date());
-                adminService.insert(admin);
+                
+               
+                admin=adminService.insert(admin);
             } else {
                 Admin updateAdmin = adminService.getById(admin.getUid());
                 if (!"null".equals(updateAdmin)) {
-                    admin.setSalt(updateAdmin.getSalt());
-                    if (!StringUtils.isEmpty(admin.getPassword())) {
-                        String password = PasswordUtil.createAdminPwd(admin.getPassword(), updateAdmin.getCredentialsSalt());
-                        admin.setPassword(password);
-                    } else {
-                        admin.setPassword(updateAdmin.getPassword());
-                    }
-                    admin.setUpdatedAt(new Date());
-                    adminService.save(admin);
+                   
+                admin= adminService.save(admin,updateAdmin);
+                
                 } else {
                     return ReturnUtil.Error("操作失败", null, null);
                 }
             }
+            
             if (admin.getRoleId() != null) {
                 adminRoleService.deleteAdminId(admin.getUid());
                 for (String roleid : admin.getRoleId()) {
@@ -160,13 +148,14 @@ public class AdminController {
             }else{
                 adminRoleService.deleteAdminId(admin.getUid());
             }
-            return ReturnUtil.Success("操作成功", null, "console/admin/index");
+            return ReturnUtil.Success("操作成功", null, "/barber/console/admin/index");
         } catch (Exception e) {
             e.printStackTrace();
             return ReturnUtil.Error("操作失败", null, null);
         }
     }
-
+    
+    @Transactional
     @RequiresPermissions("admin:editpwd")
     @RequestMapping(value = "/savepwd", method = {RequestMethod.POST})
     @ResponseBody
@@ -194,6 +183,7 @@ public class AdminController {
         }
     }
 
+    @Transactional
     @RequiresPermissions("admin:delete")
     @RequestMapping(value = "/delete", method = {RequestMethod.GET})
     @ResponseBody
@@ -201,10 +191,13 @@ public class AdminController {
         try {
             if (ids != null) {
                 if (StringUtils.isNotBlank(ids.toString())) {
-                    for (String id : ids) {
-                        adminRoleService.deleteAdminId(id);
-                        adminService.deleteById(id);
-                    }
+                	
+                	adminRoleService.deleteAdminIds(ids);
+                	adminService.deleteByUid(ids);
+//                   for (String id : ids) {
+//                        
+//                        adminService.deleteById(id);
+//                    }
                 }
                 return ReturnUtil.Success("删除成功", null, null);
             } else {
@@ -215,5 +208,12 @@ public class AdminController {
             return ReturnUtil.Error("删除失败", null, null);
         }
     }
+    public static void main(String[] args) {
+    	String admin=null;
+    
+    	if (!"null".equals(admin)) {
+    		System.out.println("xxxx");
+    	}
+	}
 
 }

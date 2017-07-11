@@ -1,8 +1,5 @@
-/*
- * Copyright (c) 2017 <l_iupeiyu@qq.com> All rights reserved.
- */
 
-package com.geekcattle.model.console;
+package com.geekcattle.domain.entity.console;
 
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -13,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * author geekcattle date 2016/10/21 0021 下午 15:11
+ * author 
  */
 @Entity
 @Table(name = "role")

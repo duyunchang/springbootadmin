@@ -1,19 +1,17 @@
-/*
- * Copyright (c) 2017 <l_iupeiyu@qq.com> All rights reserved.
- */
 
 package com.geekcattle.conf.shiro;
 
-import com.geekcattle.model.console.Admin;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.InvalidSessionException;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 
+import com.geekcattle.domain.entity.console.Admin;
+import com.geekcattle.domain.entity.member.Member;
+
 /**
  * shiro工具类
- * author geekcattle
- * date 2016/12/6 0006 上午 10:45
+ * author
  */
 public class AdminShiroUtil {
     /**
@@ -42,6 +40,20 @@ public class AdminShiroUtil {
         try {
             if(getSession() != null){
                 Admin admin = (Admin) getSubject().getPrincipals().getPrimaryPrincipal();
+                return admin;
+            }else{
+                return null;
+            }
+        }catch (Exception e){
+
+        }
+        return null;
+    }
+    
+    public static Member getMemberInfo(){
+        try {
+            if(getSession() != null){
+            	Member admin = (Member) getSubject().getPrincipals().getPrimaryPrincipal();
                 return admin;
             }else{
                 return null;

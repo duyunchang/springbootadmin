@@ -1,6 +1,3 @@
-/*
- * Copyright (c) 2017 <l_iupeiyu@qq.com> All rights reserved.
- */
 
 package com.geekcattle.conf.shiro;
 
@@ -15,8 +12,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 /**
- * author geekcattle
- * date 2017/3/22 0022 下午 15:32
+ * author 
  */
 public class RedisSessionDAO extends AbstractSessionDAO {
 

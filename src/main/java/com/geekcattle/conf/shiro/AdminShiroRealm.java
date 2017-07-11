@@ -1,14 +1,10 @@
-/*
- * Copyright (c) 2017 <l_iupeiyu@qq.com> All rights reserved.
- */
 
 package com.geekcattle.conf.shiro;
 
-import com.geekcattle.model.console.Admin;
-import com.geekcattle.model.console.Menu;
+import com.geekcattle.domain.entity.console.Admin;
+import com.geekcattle.domain.entity.console.Menu;
 import com.geekcattle.service.console.AdminService;
 import com.geekcattle.service.console.MenuService;
-import com.geekcattle.service.console.RoleService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -23,8 +19,7 @@ import java.util.Set;
 
 /**
  * 后台身份校验核心类
- * author geekcattle
- * date 2017/3/13 0013 下午 15:38
+ * author
  */
 public class AdminShiroRealm extends AuthorizingRealm {
 

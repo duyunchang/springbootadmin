@@ -1,29 +1,21 @@
-/*
- * Copyright (c) 2017 <l_iupeiyu@qq.com> All rights reserved.
- */
 
 package com.geekcattle.service.console;
 
+import com.geekcattle.domain.entity.BaseEntity;
+import com.geekcattle.domain.entity.console.Log;
 import com.geekcattle.manager.console.LogMapper;
-import com.geekcattle.model.BaseEntity;
-import com.geekcattle.model.console.AdminRole;
-import com.geekcattle.model.console.Log;
-import com.geekcattle.util.CamelCaseUtil;
 import com.geekcattle.util.DateUtil;
 import com.geekcattle.util.UuidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
- * author geekcattle
- * date 2017/1/6 0006 上午 11:26
+ * author 
  */
 @Service
 public class LogService {
@@ -44,7 +36,6 @@ public class LogService {
 //        return logMapper.selectAll();
     }
 
-    @Transactional
     public void insert(Log log){
         logMapper.save(log);
     }

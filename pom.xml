@@ -63,11 +63,9 @@
 		
 		
 		
+
 		
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jdbc</artifactId>
-		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-aop</artifactId>
@@ -109,7 +107,7 @@
 		</dependency>
 
 
-
+        <!-- 
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
@@ -130,7 +128,7 @@
 			<groupId>com.fasterxml.jackson.module</groupId>
 			<artifactId>jackson-module-parameter-names</artifactId>
 		</dependency>
-
+ 		-->
 		
 
 		<dependency>
@@ -148,7 +146,7 @@
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
-			<version>1.10</version>
+			
 		</dependency>
 
 		<!-- MYSQL -->
@@ -156,6 +154,12 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
+		<!--  
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		-->
 		<!-- Spring Boot JPA -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -232,7 +236,7 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>admin</finalName>
+		<finalName>barber</finalName>
 		<plugins>
 
 			<!-- maven 跳过test单元测试 -->

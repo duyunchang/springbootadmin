@@ -1,23 +1,14 @@
-/*
- * Copyright (c) 2017 <l_iupeiyu@qq.com> All rights reserved.
- */
-
 package com.geekcattle.controller.console;
 
-import com.geekcattle.model.console.Admin;
-import com.geekcattle.model.console.AdminRole;
-import com.geekcattle.model.console.Menu;
-import com.geekcattle.model.console.Role;
+import com.geekcattle.domain.entity.console.Menu;
 import com.geekcattle.service.console.*;
-import com.geekcattle.util.DateUtil;
-import com.geekcattle.util.PasswordUtil;
+
 import com.geekcattle.util.ReturnUtil;
 import com.geekcattle.util.UuidUtil;
 import com.geekcattle.util.console.MenuTreeUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,8 +26,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * author geekcattle
- * date 2016/10/21 0021 下午 15:58
+ * author 
  */
 @Controller
 @RequestMapping("/console/menu")
@@ -55,6 +45,7 @@ public class MenuController {
         ArrayList<Menu> menuLists = new ArrayList<>();
         List<Menu> Lists = menuService.getChildMenuList(menuLists,"0");
         model.addAttribute("menus", Lists);
+        
         return "console/menu/index";
     }
 
@@ -77,9 +68,11 @@ public class MenuController {
         if (StringUtils.isEmpty(menu.getParentId())) {
             menu.setParentId("0");
         }
+        //menu.setCreatedAt(new Date());
+        //menu.setUpdatedAt(new Date());
         if (!StringUtils.isEmpty(menu.getMenuId())) {
             menu = menuService.getById(menu.getMenuId());
-            if (!"null".equals(menu)) {
+            if (menu!=null&&!"null".equals(menu)) {
                 menu.setUpdatedAt(new Date());
             }
         } else {
@@ -92,10 +85,10 @@ public class MenuController {
         model.addAttribute("menu", menu);
         return "console/menu/from";
     }
-
-    @RequiresPermissions("menu:save")
-    @RequestMapping(value = "/save", method = {RequestMethod.POST})
+   
     @Transactional
+    @RequiresPermissions("menu:save")
+    @RequestMapping(value = "/save", method = {RequestMethod.POST}) 
     @ResponseBody
     public ModelMap save(@Valid Menu menu, BindingResult result) {
         try {
@@ -103,6 +96,10 @@ public class MenuController {
                 for (ObjectError er : result.getAllErrors())
                     return ReturnUtil.Error(er.getDefaultMessage(), null, null);
             }
+            
+            menu.setCreatedAt(new Date());
+            menu.setUpdatedAt(new Date());
+            
             if (StringUtils.isEmpty(menu.getMenuId())) {
                 String Id = UuidUtil.getUUID();
                 menu.setMenuId(Id);
@@ -120,13 +117,14 @@ public class MenuController {
                 parentMenu.setChildNum(parentCount);
                 menuService.save(parentMenu);
             }
-            return ReturnUtil.Success("操作成功", null, "/console/menu/index");
+            return ReturnUtil.Success("操作成功", null, "/barber/console/menu/index");
         } catch (Exception e) {
             e.printStackTrace();
             return ReturnUtil.Error("操作失败", null, null);
         }
     }
 
+    @Transactional
     @RequiresPermissions("menu:listorder")
     @RequestMapping(value = "/listorder", method = {RequestMethod.POST})
     @ResponseBody
@@ -143,6 +141,7 @@ public class MenuController {
         }
     }
 
+    @Transactional
     @ResponseBody
     @RequiresPermissions("menu:delete")
     @RequestMapping(value = "/delete", method = {RequestMethod.GET})
@@ -151,10 +150,13 @@ public class MenuController {
             if ("null".equals(ids) || "".equals(ids)) {
                 return ReturnUtil.Error("Error", null, null);
             } else {
-                for (String id : ids) {
-                    roleMenuService.deleteMenuId(id);
-                    menuService.deleteById(id);
-                }
+            	
+            	roleMenuService.deleteMenuIds(ids);
+            	menuService.deleteByIds(ids);
+//                for (String id : ids) {
+//                    roleMenuService.deleteMenuId(id);
+//                    menuService.deleteById(id);
+//                }
                 return ReturnUtil.Success("Success", null, null);
             }
         } catch (Exception e) {

@@ -5,7 +5,9 @@
 package com.geekcattle.controller.console;
 
 import com.geekcattle.Constants.Constants;
-import com.geekcattle.model.console.*;
+import com.geekcattle.domain.entity.console.Menu;
+import com.geekcattle.domain.entity.console.Role;
+import com.geekcattle.domain.entity.console.RoleMenu;
 import com.geekcattle.service.console.AdminRoleService;
 import com.geekcattle.service.console.MenuService;
 import com.geekcattle.service.console.RoleMenuService;
@@ -19,6 +21,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -87,6 +90,7 @@ public class RoleController {
         return "console/role/from";
     }
 
+    @Transactional
     @RequiresPermissions("role:save")
     @RequestMapping(value = "/save", method = {RequestMethod.POST})
     @ResponseBody
@@ -124,6 +128,7 @@ public class RoleController {
         
     }
 
+    @Transactional
     @RequiresPermissions("role:delete")
     @RequestMapping(value = "/delete", method = {RequestMethod.GET})
     @ResponseBody
@@ -132,10 +137,13 @@ public class RoleController {
             if ("null".equals(ids) || "".equals(ids)) {
                 return ReturnUtil.Error("Error", null, null);
             } else {
-                for (String id : ids) {
-                    adminRoleService.deleteRoleId(id);
-                    roleService.deleteById(id);
-                }
+            	adminRoleService.deleteRoleIds(ids);
+            	roleService.deleteByIdsIn(ids);
+//                for (String id : ids) {
+//                    adminRoleService.deleteRoleId(id);
+//                    roleService.deleteById(id);
+//                }
+                
                 return ReturnUtil.Success("操作成功", null, null);
             }
         } catch (Exception e) {
@@ -165,6 +173,7 @@ public class RoleController {
         return ReturnUtil.Success(null, mapList, null);
     }
 
+    @Transactional
     @RequiresPermissions("role:grant")
     @RequestMapping(value = "/grant", method = {RequestMethod.POST})
     @ResponseBody

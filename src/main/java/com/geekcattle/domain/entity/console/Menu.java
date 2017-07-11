@@ -1,19 +1,11 @@
-/*
- * Copyright (c) 2017 <l_iupeiyu@qq.com> All rights reserved.
- */
 
-package com.geekcattle.model.console;
+package com.geekcattle.domain.entity.console;
 
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.geekcattle.util.DateUtil;
-
 import javax.persistence.*;
-
 import java.io.Serializable;
-import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 

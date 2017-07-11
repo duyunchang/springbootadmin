@@ -1,31 +1,24 @@
-/*
- * Copyright (c) 2017 <l_iupeiyu@qq.com> All rights reserved.
- */
 
 package com.geekcattle.service.console;
 
 import com.geekcattle.Constants.Constants;
+import com.geekcattle.domain.entity.BaseEntity;
+import com.geekcattle.domain.entity.console.Role;
 import com.geekcattle.manager.BaseNativeSqlRepository;
 import com.geekcattle.manager.console.RoleMapper;
-import com.geekcattle.model.BaseEntity;
-import com.geekcattle.model.console.Admin;
-import com.geekcattle.model.console.Role;
-import com.geekcattle.util.CamelCaseUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 /**
- * author geekcattle
- * date 2016/10/21 0021 下午 15:47
+ * author 
  */
 @Service
 public class RoleService {
@@ -70,16 +63,20 @@ public class RoleService {
         return roleMapper.findOne(id);
     }
 
-//    public List<Role> getById(Role roles) {
-//       
-//    	return roleMapper.findAll( roles.getRoleId());
-//    }
-    @Transactional
+  
     public void deleteById(String id) {
         roleMapper.delete(id);
     }
+    
+//    public void deleteByIds(String[] id) {
+//        roleMapper.deleteAllInId(id);
+//    }
 
-    @Transactional
+    public void deleteByIdsIn(String[] ids) {
+        roleMapper.deleteByRoleIdIn(ids);
+    }
+    
+    
     public int save(Role role) {
     	int flag=Constants.update_fail;
     	
@@ -90,7 +87,7 @@ public class RoleService {
        return flag;
     }
 
-    @Transactional
+    
     public int insert(Role role){
         Role save = roleMapper.save(role);
         if(save==null){

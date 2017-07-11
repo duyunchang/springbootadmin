@@ -1,10 +1,7 @@
-/*
- * Copyright (c) 2017 <l_iupeiyu@qq.com> All rights reserved.
- */
 
 package com.geekcattle.conf.shiro;
 
-import com.geekcattle.model.member.Member;
+import com.geekcattle.domain.entity.member.Member;
 import com.geekcattle.service.member.MemberService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -16,8 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * 前台身份校验核心类
- * author geekcattle
- * date 2016/11/22 0022 下午 15:27
+ * author 
  */
 public class CustomShiroRealm extends AuthorizingRealm {
 

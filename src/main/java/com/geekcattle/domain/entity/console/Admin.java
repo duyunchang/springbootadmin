@@ -1,8 +1,5 @@
-/*
- * Copyright (c) 2017 <l_iupeiyu@qq.com> All rights reserved.
- */
 
-package com.geekcattle.model.console;
+package com.geekcattle.domain.entity.console;
 import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 
@@ -45,11 +42,26 @@ public class Admin  implements Serializable {//extends BaseEntity
 	@Column(name = "updated_at")
 	private Date updatedAt;
 
+	@Column(name = "isdelete")//1已经删除，2未删除
+	private Integer isDelete;
+	
+	
 	@Transient
 	private String[] roleId;
 
 	@Transient
 	private List<Role> roleList;
+
+	
+	
+	
+	public Integer getIsDelete() {
+		return isDelete;
+	}
+
+	public void setIsDelete(Integer isDelete) {
+		this.isDelete = isDelete;
+	}
 
 	public String getUid() {
 		return uid;
@@ -115,6 +127,7 @@ public class Admin  implements Serializable {//extends BaseEntity
 		this.updatedAt = updatedAt;
 	}
 
+	
 	/**
 	 * 密码盐.
 	 * 

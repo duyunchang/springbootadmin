@@ -1,15 +1,10 @@
-/*
- * Copyright (c) 2017 <l_iupeiyu@qq.com> All rights reserved.
- */
-
 package com.geekcattle.controller.member;
 
 import com.geekcattle.conf.LoginEnum;
 import com.geekcattle.conf.shiro.CustomerAuthenticationToken;
-import com.geekcattle.model.member.Member;
+import com.geekcattle.domain.entity.member.Member;
 import com.geekcattle.model.valid.ValidMember;
 import com.geekcattle.service.member.MemberService;
-import com.geekcattle.util.DateUtil;
 import com.geekcattle.util.PasswordUtil;
 import com.geekcattle.util.ReturnUtil;
 import com.geekcattle.util.UuidUtil;
@@ -22,21 +17,20 @@ import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-//import tk.mybatis.mapper.entity.Example;
 
 import java.util.Date;
 
 import javax.validation.Valid;
 
 /**
- * author geekcattle
- * date 2017/3/9 0009 下午 14:28
+ * author 
  */
 @RestController
 @RequestMapping("/member")
@@ -105,6 +99,7 @@ public class MemberController {
      * @param bindingResult
      * @return
      */
+    @Transactional
     @RequestMapping(value = "/reg", method = RequestMethod.POST)
     public ModelMap doReg(@Valid Member member, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

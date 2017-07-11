@@ -1,6 +1,3 @@
-/*
- * Copyright (c) 2017 <l_iupeiyu@qq.com> All rights reserved.
- */
 
 package com.geekcattle.util;
 
@@ -22,7 +19,7 @@ public class ReturnUtil {
         mp.put("msg", msg);
         mp.put("referer", referer);
         mp.put("result", obj);
-        System.out.println(obj);
+        //System.out.println(obj);
         return mp;
     }
 

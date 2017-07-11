@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2017 <l_iupeiyu@qq.com> All rights reserved.
- */
-
 package com.geekcattle.manager.console;
 
 import java.util.List;
@@ -10,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
-import com.geekcattle.model.console.RoleMenu;
+import com.geekcattle.domain.entity.console.RoleMenu;
 
 public interface RoleMenuMapper extends JpaRepository<RoleMenu,Long> {
 	
@@ -21,5 +17,13 @@ public interface RoleMenuMapper extends JpaRepository<RoleMenu,Long> {
 	 int deleteByRoleId(String roleId);
 	 
 	 @Modifying 
+	 int deleteByRoleIdIn(String[] roleId);
+	 
+	 @Modifying 
 	 int deleteByMenuId(String menuId);
+	 
+	 @Modifying 
+	 int deleteByMenuIdIn(String[] menuId);
+	 
+	 
 }

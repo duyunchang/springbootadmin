@@ -1,17 +1,11 @@
-/*
- * Copyright (c) 2017 <l_iupeiyu@qq.com> All rights reserved.
- */
-
 package com.geekcattle.controller.console;
 
 import com.geekcattle.conf.shiro.AdminShiroUtil;
-import com.geekcattle.model.console.Admin;
-import com.geekcattle.model.console.Menu;
-import com.geekcattle.model.console.Role;
+import com.geekcattle.domain.entity.console.Admin;
+import com.geekcattle.domain.entity.console.Menu;
 import com.geekcattle.service.console.*;
 import com.geekcattle.util.ReturnUtil;
 import com.geekcattle.util.console.MenuTreeUtil;
-import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,6 +34,9 @@ public class MainController {
     @RequestMapping(value = "/index", method = {RequestMethod.GET})
     public String index(Model model) {
         Admin admin = AdminShiroUtil.getUserInfo();
+        if(admin==null){
+        	return "index";
+        }
         List<Menu> treeGridList = this.getMenu(admin);
         model.addAttribute("admin", admin);
         model.addAttribute("menuLists", treeGridList);

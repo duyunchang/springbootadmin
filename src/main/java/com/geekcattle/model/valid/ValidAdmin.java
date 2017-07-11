@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2017 <l_iupeiyu@qq.com> All rights reserved.
- */
-
 package com.geekcattle.model.valid;
 
 import org.hibernate.validator.constraints.NotEmpty;

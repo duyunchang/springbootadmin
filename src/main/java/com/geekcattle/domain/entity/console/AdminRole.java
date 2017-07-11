@@ -1,8 +1,5 @@
-/*
- * Copyright (c) 2017 <l_iupeiyu@qq.com> All rights reserved.
- */
 
-package com.geekcattle.model.console;
+package com.geekcattle.domain.entity.console;
 
 import java.io.Serializable;
 

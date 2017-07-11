@@ -1,20 +1,16 @@
-/*
- * Copyright (c) 2017 <l_iupeiyu@qq.com> All rights reserved.
- */
-
 package com.geekcattle.controller.member;
 
-import com.geekcattle.model.member.Member;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.session.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.geekcattle.conf.shiro.AdminShiroUtil;
+import com.geekcattle.domain.entity.member.Member;
+
 /**
- * author geekcattle
- * date 2017/3/14 0014 上午 9:54
+ * author 
  */
 @Controller
 @RequestMapping("/member")
@@ -22,10 +18,14 @@ public class HomeController {
 
     @RequestMapping("/index")
     public String index(Model model){
-        Member member = (Member) SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
-        String account = member.getAccount();
-        model.addAttribute("account", account);
-        return "member/home";
+        //Member member = (Member) SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
+    	Member member = AdminShiroUtil.getMemberInfo();
+    	if(member!=null&&!"null".equals(member)){
+	    	String account = member.getAccount();
+	        model.addAttribute("account", account);
+	        return "member/home";
+    	}
+    	return "index";
     }
 
     /**
@@ -36,10 +36,11 @@ public class HomeController {
     public String login(){
         try {
         	
-            Member member = (Member) SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
+            //Member member = (Member) SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
+        	Member member = AdminShiroUtil.getMemberInfo();
             //System.out.println(member);
-            if(!"null".equals(member)){
-                return "redirect:/member/index";
+        	if(member!=null&&!"null".equals(member)){
+                return "redirect:/barber/member/index";//重回定向到一个页面
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -55,9 +56,10 @@ public class HomeController {
     public String reg(){
 
         try {
-            Member member = (Member) SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
-            if(!"null".equals(member)){
-                return "redirect:/member/index";
+            //Member member = (Member) SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
+        	Member member = AdminShiroUtil.getMemberInfo();
+        	if(member!=null&&!"null".equals(member)){
+                return "redirect:/barber/member/index";
             }
         }catch (Exception e){
             e.printStackTrace();

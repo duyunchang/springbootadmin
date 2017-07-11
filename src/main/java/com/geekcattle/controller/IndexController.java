@@ -17,7 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping
 public class IndexController {
 
-    @RequestMapping
+    //@RequestMapping
+    @RequestMapping(value = "/",method = {RequestMethod.GET})
     public String index(Model model) {
         return "index";
     }
@@ -43,5 +44,14 @@ public class IndexController {
         return "403";
     }
 
+    @RequestMapping("/404")
+    public String noFindPage(){
+        return "404";
+    }
+    
+    @RequestMapping("/500")
+    public String chengXuError(){
+        return "500";
+    }
 
 }

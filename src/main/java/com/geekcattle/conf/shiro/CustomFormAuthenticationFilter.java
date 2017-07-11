@@ -1,6 +1,3 @@
-/*
- * Copyright (c) 2017 <l_iupeiyu@qq.com> All rights reserved.
- */
 
 package com.geekcattle.conf.shiro;
 
@@ -13,8 +10,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 /**
- * author geekcattle
- * date 2017/3/23 0023 上午 11:23
+ * author 
  */
 public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
 

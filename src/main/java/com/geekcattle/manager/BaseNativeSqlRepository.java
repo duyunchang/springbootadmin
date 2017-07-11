@@ -8,10 +8,10 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Service;
 
-import com.geekcattle.model.console.Menu;
-import com.geekcattle.model.console.Role;
+import com.geekcattle.domain.entity.console.Menu;
+import com.geekcattle.domain.entity.console.Role;
 /**
- * 使用原生sql语句 用法
+ * 使用原生sql语句 用法 dyc
  * */
 @Service
 public class BaseNativeSqlRepository {
@@ -19,20 +19,22 @@ public class BaseNativeSqlRepository {
 	@PersistenceUnit(unitName = "default")
 	private EntityManagerFactory emf;
 
-	public void deleteById(String Id){
-		EntityManager em = emf.createEntityManager();
-		// 定义SQL
-		String sql_admin_role="delete from admin_role ar where ar.admin_id = '"+Id+"'";
-		String sql_admin="delete from admin a where a.uid = '"+Id+"'";
-		// 创建原生SQL查询QUERY实例		
-		Query query_admin_role = em.createNativeQuery(sql_admin_role);
-		int execute_admin_role = query_admin_role.executeUpdate();		
-		Query query_admin = em.createNativeQuery(sql_admin);
-		int execute_admin = query_admin.executeUpdate();
-		//query_admin.
-		em.close();
-				 
-	 }
+//	public void deleteById(String Id){
+//		EntityManager em = emf.createEntityManager();
+//		// 定义SQL
+//		String sql_admin_role="delete from admin_role  where admin_id = '"+Id+"'";
+//		String sql_admin="delete from admin  where uid = '"+Id+"'"; 
+//		// 创建原生SQL查询QUERY实例		
+//		Query query_admin_role = em.createNativeQuery(sql_admin_role);
+//		System.out.println("sql_admin_role="+sql_admin_role);
+//		int execute_admin_role = query_admin_role.executeUpdate();		
+//		Query query_admin = em.createNativeQuery(sql_admin);
+//		System.out.println("sql_admin="+sql_admin);
+//		int execute_admin = query_admin.executeUpdate();
+//		//query_admin.
+//		em.close();
+//				 
+//	 }
 	
 	public List<String> findMenuCodeByUserId(String userId){
 		EntityManager em = emf.createEntityManager();

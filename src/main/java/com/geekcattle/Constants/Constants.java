@@ -1,7 +1,6 @@
 package com.geekcattle.Constants;
 
 
-
 public class Constants {
 
 	/**
@@ -17,7 +16,11 @@ public class Constants {
 	public static final String MSG_SUCCESS="success";//成功
 	public static final String MSG_FAIL="fail";//失败
 	
-	
+	/**
+	 * 是否已删除
+	 */
+	public static final int ISDELETE_YES=1;//被删除
+	public static final int ISDELETE_NO=2;//未删除
 	
 	
 	

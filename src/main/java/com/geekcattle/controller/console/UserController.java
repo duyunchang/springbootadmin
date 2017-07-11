@@ -1,10 +1,6 @@
-/*
- * Copyright (c) 2017 <l_iupeiyu@qq.com> All rights reserved.
- */
-
 package com.geekcattle.controller.console;
 
-import com.geekcattle.model.member.Member;
+import com.geekcattle.domain.entity.member.Member;
 import com.geekcattle.service.member.MemberService;
 import com.geekcattle.util.ReturnUtil;
 import com.github.pagehelper.PageInfo;
@@ -22,8 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 /**
- * author geekcattle
- * date 2016/10/21 0021 下午 15:58
+ * author
  */
 @Controller
 @RequestMapping("/console/member")

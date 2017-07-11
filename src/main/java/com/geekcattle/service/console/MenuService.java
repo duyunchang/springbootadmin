@@ -1,15 +1,11 @@
-/*
- * Copyright (c) 2017 <l_iupeiyu@qq.com> All rights reserved.
- */
 
 package com.geekcattle.service.console;
 
+import com.geekcattle.domain.entity.BaseEntity;
+import com.geekcattle.domain.entity.console.Menu;
 import com.geekcattle.manager.BaseNativeSqlRepository;
-import com.geekcattle.manager.console.AdminMapper;
 import com.geekcattle.manager.console.MenuMapper;
-import com.geekcattle.model.BaseEntity;
-import com.geekcattle.model.console.Admin;
-import com.geekcattle.model.console.Menu;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -18,17 +14,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.tree.TreeNode;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 /**
- * author geekcattle
- * date 2016/10/21 0021 下午 15:43
+ * author
  */
 @Service
 public class MenuService {
@@ -103,7 +96,7 @@ public class MenuService {
 
     public Integer getCount(String parent_id){
     	
-    	return  menuMapper.findByParentId(parent_id).size();
+    	return  menuMapper.findCountByParentId(parent_id);
     	 
         //return menuMapper.selectCountByExample(example);
     }
@@ -112,17 +105,19 @@ public class MenuService {
         return menuMapper.findOne(id);
     }
 
-    @Transactional
     public void deleteById(String id) {
         menuMapper.delete(id);
     }
+    
+    public void deleteByIds(String[] ids) {
+        menuMapper.deleteByMenuIdIn(ids);
+    }
 
-    @Transactional
+   
     public void insert(Menu menu){
         menuMapper.save(menu);
     }
 
-    @Transactional
     public void save(Menu menu) {
     	menuMapper.save(menu);
 //        if (menu.getMenuId() != null) {
@@ -173,7 +168,6 @@ public class MenuService {
         return BaseNativeSqlManager.selectMenuByRoleId(roleId);
     }
 
-    @Transactional
     public void update(Menu menu, String id ){
     	
     	menuMapper.updatelistorderByid(menu.getListorder(),  id);

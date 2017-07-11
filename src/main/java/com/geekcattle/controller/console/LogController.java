@@ -1,12 +1,6 @@
-/*
- * Copyright (c) 2017 <l_iupeiyu@qq.com> All rights reserved.
- */
-
 package com.geekcattle.controller.console;
 
-import com.geekcattle.model.console.Admin;
-import com.geekcattle.model.console.Log;
-import com.geekcattle.model.console.Role;
+import com.geekcattle.domain.entity.console.Log;
 import com.geekcattle.service.console.LogService;
 import com.geekcattle.util.ReturnUtil;
 import com.github.pagehelper.PageInfo;
@@ -22,8 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 /**
- * author geekcattle
- * date 2017/1/6 0006 上午 11:35
+ * author 
  */
 @Controller
 @RequestMapping("/console/log")

@@ -1,10 +1,5 @@
-/*
- * Copyright (c) 2017 <l_iupeiyu@qq.com> All rights reserved.
- */
 
-package com.geekcattle.model.member;
-
-import com.geekcattle.model.BaseEntity;
+package com.geekcattle.domain.entity.member;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,8 +9,10 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.geekcattle.domain.entity.BaseEntity;
+
 /**
- * author geekcattle date 2016/10/21 0021 下午 15:11
+ * author 
  */
 @Entity
 @Table(name = "member")
