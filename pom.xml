@@ -1,18 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.geek</groupId>
-	<artifactId>SpringBootAdmin</artifactId>
+	<artifactId>barber</artifactId>
 	<!-- <packaging>jar</packaging> -->
 	<packaging>war</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<name>SpringBootAdmin</name>
-	<url>http://app.geekcattle.cc</url>
-
+	<name>barber</name>
+	<!-- <url>http://app.geekcattle.cc</url> -->
+	<url>http://projects.spring.io/spring-boot/</url>
+	<!--  <url>http://maven.apache.org</url>-->
+	<organization>
+		<name>Pivotal Software, Inc.</name>
+		<url>http://www.spring.io</url>
+	</organization>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.2.RELEASE</version>
+		<version>1.5.3.RELEASE</version>
 		<relativePath></relativePath>
 	</parent>
 
@@ -45,6 +51,14 @@
                     <groupId>org.slf4j</groupId>
                 </exclusion>
             </exclusions>
+        	<!-- 改成自己log4j格式 
+        	<exclusions>
+        		<exclusion> 
+		           	 <groupId>org.springframework.boot</groupId>
+		           	 <artifactId>spring-boot-starter-logging</artifactId>
+        		</exclusion>
+   			 </exclusions>
+   			 -->
     	</dependency>
     	
     	<!--外部log4j -->
@@ -52,6 +66,21 @@
 		    <groupId>log4j</groupId>
 		    <artifactId>log4j</artifactId>
 		    <version>1.2.17</version>
+		</dependency>
+  
+    		<!-- 如果要打war需要添加servlet-api的依赖 -->
+    		<!-- 在这里将scope属性设置为provided，这样在最终形成的WAR中不会包含这个JAR包，因为Tomcat或Jetty等服务器在运行时将会提供相关的API类。此时，执行mvn 
+				package命令就会得到一个WAR文件，我们可以直接将其放到Tomcat下运行（需要7.0.42版本以上）。 -->	
+		<dependency>
+			  <groupId>org.apache.tomcat</groupId>
+			  <artifactId>tomcat-servlet-api</artifactId>
+			  <version>7.0.52</version>			
+			  <scope>provided</scope>
+		</dependency>	
+		 <dependency>
+			  <groupId>org.springframework.boot</groupId>
+			  <artifactId>spring-boot-starter-tomcat</artifactId>	
+			  <scope>provided</scope>				
 		</dependency>
 
 		  <!--分页插件-->
@@ -61,7 +90,11 @@
             <version>4.1.1</version>
         </dependency>
 		
-		
+		 <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>3.14</version>
+         </dependency>
 		
 
 		
@@ -224,9 +257,15 @@
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
-			<version>2.8.2</version>
 		</dependency>
 
+		<dependency>
+		    <groupId>net.sf.json-lib</groupId>
+		    <artifactId>json-lib</artifactId>
+		    <version>2.4</version>
+		    <classifier>jdk15</classifier>
+		</dependency>
+		
 		<!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -234,7 +273,21 @@
 			<!--<version>4.11</version> -->
 			<scope>test</scope>
 		</dependency>
+		
+		 <dependency> 
+                <groupId>io.springfox</groupId> 
+                <artifactId>springfox-swagger2</artifactId> 
+                <version>2.6.0</version> 
+            </dependency> 
+            <dependency> 
+                <groupId>io.springfox</groupId> 
+                <artifactId>springfox-swagger-ui</artifactId> 
+                <version>2.6.0</version> 
+            </dependency> 
+            
 	</dependencies>
+	
+	
 	<build>
 		<finalName>barber</finalName>
 		<plugins>
@@ -289,24 +342,52 @@
 
 	</build>
 
-	<repositories>
-		<repository>
-			<id>spring-snapshots</id>
-			<url>http://repo.spring.io/libs-snapshot</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-
-	<pluginRepositories>
-		<pluginRepository>
+	<!-- Allow access to Spring milestones and snapshots -->
+	<!-- (you don't need this if you are using anything after 0.5.0.RELEASE) -->
+	<repositories>  
+	 	<repository>
+                <id>ali</id>
+                <name>ali Repository</name>
+                <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+                <snapshots>
+                    <enabled>false</enabled>
+                </snapshots>
+            </repository>
+        <repository>  
+            <id>spring-snapshots</id>  
+            <url>http://repo.spring.io/snapshot</url>  
+            <snapshots>  
+                <enabled>true</enabled>  
+            </snapshots>  
+        </repository>  
+        <repository>  
+            <id>spring-milestones</id>  
+            <url>http://repo.spring.io/milestone</url>  
+        </repository>  
+    </repositories>  
+    
+    
+    
+    
+    
+    <pluginRepositories> 
+    	<!-- 
+        <pluginRepository>  
+            <id>spring-snapshots</id>  
+            <url>http://repo.spring.io/snapshot</url>  
+        </pluginRepository>  
+         --> 
+        <pluginRepository>  
+            <id>spring-milestones</id>  
+            <url>http://repo.spring.io/milestone</url>  
+        </pluginRepository>  
+        <pluginRepository>
 			<id>spring-snapshots</id>
 			<url>http://repo.spring.io/libs-snapshot</url>
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
 		</pluginRepository>
-	</pluginRepositories>
+    </pluginRepositories>
 
 </project>
